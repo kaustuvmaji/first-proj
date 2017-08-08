@@ -1,7 +1,7 @@
 package com.example.demo;
 
 import java.io.Serializable;
-import java.util.ArrayList;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -13,19 +13,20 @@ import org.springframework.stereotype.*;
 @SpringBootApplication
 public class DemoApplication {
 
-	private final ArrayList<Employee> employees = new ArrayList<>();
+	private final CopyOnWriteArrayList<Employee> employees = new CopyOnWriteArrayList<>();
 
 	public DemoApplication() {
-		employees.add(new Employee(1, "jacko", "dev"));
-		employees.add(new Employee(2, "jacko 3", "dev"));
-		employees.add(new Employee(3, "shelly", "qa"));
+		employees.add(new Employee(1, "Josh", "dev"));
+		employees.add(new Employee(2, "Rev", "qa"));
+		employees.add(new Employee(3, "Kaustuv", "dev"));
+		employees.add(new Employee(4, "Sam", "Hr"));
 	}
 
 	public static void main(String[] args) {
 		SpringApplication.run(DemoApplication.class, args);
 	}
 
-	@RequestMapping("/spring-boot-demo")
+	@RequestMapping("/")
 	@ResponseBody
 	String home() {
 
@@ -35,21 +36,22 @@ public class DemoApplication {
 		welcome.append(" Default media type is jason </br>");
 		welcome.append("List of services and urls are as following </br>");
 		welcome.append("<ul>");
-		welcome.append("<li> List of Employees url will be -> /spring-boot-demo/listOfEmployees </li>");
-		welcome.append("<li> Employee Detail url will be id match -> /spring-boot-demo/employeeDetail </li>");
-		welcome.append("<li> Add employee  url will be id match -> /spring-boot-demo/addEmployee </li>");
+		welcome.append("<li> List of Employees url will be  Example of Read -> /listOfEmployee </li>");
+		welcome.append("<li> Employee Detail url will be id match Example of Read -> /employeeDetail </li>");
+		welcome.append("<li> Add employee  url will be id match Example of Create-> /addEmployee </li>");
+		welcome.append("<li> Add employee  url will be id match Example of Update-> /updateEmployee </li>");
+		welcome.append("<li> Add employee  url will be id match Example of delete-> /deleteEmployee </li>");
 		welcome.append("</ul>");
 		return welcome.toString();
 	}
 
-	@RequestMapping(value = "/spring-boot-demo/listOfEmployees")
+	@RequestMapping(value = "/listOfEmployee")
 	@ResponseBody
-	ArrayList<Employee> getEmployees(Integer id) {
+	CopyOnWriteArrayList<Employee> getEmployees(Integer id) {
 		return employees;
 	}
 
-	@RequestMapping(value = "/spring-boot-demo/employeeDetail", method = {
-			org.springframework.web.bind.annotation.RequestMethod.GET })
+	@RequestMapping(value = "/employeeDetail", method = { org.springframework.web.bind.annotation.RequestMethod.GET })
 	@ResponseBody
 	Employee getEmployee(@RequestParam("id") Integer id) {
 		Employee emp = null;
@@ -63,17 +65,49 @@ public class DemoApplication {
 		return emp;
 	}
 
-	@RequestMapping(value = "/spring-boot-demo/addEmployee", method = {
-			org.springframework.web.bind.annotation.RequestMethod.GET,
+	@RequestMapping(value = "/addEmployee", method = { org.springframework.web.bind.annotation.RequestMethod.GET,
 			org.springframework.web.bind.annotation.RequestMethod.POST })
 	@ResponseBody
 	Employee getEmployees1(@RequestParam("id") Integer id, @RequestParam("name") String name,
-			@RequestParam("department") String department) {
+			@RequestParam(value = "department", required = false, defaultValue = "dev") String department) {
 		Employee emp = new Employee(id, name, department);
 		employees.add(emp);
 		return emp;
 	}
 
+	@RequestMapping(value = "/deleteEmployee", method = { org.springframework.web.bind.annotation.RequestMethod.GET,
+			org.springframework.web.bind.annotation.RequestMethod.POST })
+	@ResponseBody
+	Employee deleteEmployee(@RequestParam("id") Integer id,
+			@RequestParam(value = "name", required = false) String name) {
+
+		for (Employee emp : employees) {
+			if (null != emp) {
+				if (id.equals(emp.getId()) || name.equalsIgnoreCase(emp.getName())) {
+					employees.remove(emp);
+					return emp;
+
+				}
+			}
+		}
+		return null;
+	}
+
+	@RequestMapping(value = "/updateEmployee", method = { org.springframework.web.bind.annotation.RequestMethod.GET,
+			org.springframework.web.bind.annotation.RequestMethod.POST })
+	@ResponseBody
+	Employee updateEmployee(@RequestParam("id") Integer id, @RequestParam(value = "name", required = false) String name,
+			@RequestParam(value = "department", required = true) String department) {
+		for (Employee emp : employees) {
+			if (emp != null) {
+				if (id.equals(emp.getId()) || name.equalsIgnoreCase(emp.getName())) {
+					emp.setDepartment(department);
+					return emp;
+				}
+			}
+		}
+		return null;
+	}
 }
 
 class Employee implements Serializable {
