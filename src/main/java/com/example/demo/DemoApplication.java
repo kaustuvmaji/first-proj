@@ -1,6 +1,8 @@
 package com.example.demo;
 
 import java.io.Serializable;
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 import org.springframework.boot.SpringApplication;
@@ -42,6 +44,7 @@ public class DemoApplication {
 		welcome.append("<li> Add employee  url will be id match Example of Update-> /updateEmployee </li>");
 		welcome.append("<li> Add employee  url will be id match Example of delete-> /deleteEmployee </li>");
 		welcome.append("</ul>");
+		welcome.append("Date -> " + LocalDate.now() + " :: " + LocalTime.now());
 		return welcome.toString();
 	}
 
