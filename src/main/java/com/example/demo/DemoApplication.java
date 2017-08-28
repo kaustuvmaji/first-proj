@@ -13,7 +13,7 @@ import org.springframework.stereotype.*;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-@Controller
+//@Controller
 @SpringBootApplication
 @ComponentScan
 @EnableAutoConfiguration
@@ -24,13 +24,13 @@ public class DemoApplication {
 		SpringApplication.run(DemoApplication.class, args);
 	}
 
-	@Bean
+//	@Bean
 	public WebSecurityConfigurerAdapter webSecurityConfigurerAdapter() {
 		return new RestAppSecurity();
 	}
 	
-	@RequestMapping("/")
-	@ResponseBody
+//	@RequestMapping("/")
+//	@ResponseBody
 	String home() {
 
 		StringBuffer welcome = new StringBuffer();
