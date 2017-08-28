@@ -76,8 +76,7 @@ public class EmployeeRestController {
 		return emp;
 	}
 
-	@RequestMapping(value = "/deleteEmployee", method = { org.springframework.web.bind.annotation.RequestMethod.DELETE,
-			/* org.springframework.web.bind.annotation.RequestMethod.POST */ })
+	@RequestMapping(value = "/deleteEmployee", method = { org.springframework.web.bind.annotation.RequestMethod.DELETE})
 	@ResponseBody
 	Employee deleteEmployee(@RequestParam("id") Integer id) {
 
