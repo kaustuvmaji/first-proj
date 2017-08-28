@@ -29,7 +29,7 @@ public class RestAppSecurity extends WebSecurityConfigurerAdapter {
 	protected void configure(HttpSecurity http) throws Exception {
 
 		// http.authorizeRequests().antMatchers("/employee/services/**").authenticated();
-		http.csrf().disable();
+//		http.csrf().disable();
 		// http.authorizeRequests().antMatchers("/employee/services/addEmployee").hasAnyRole("ADMIN").and().authorizeRequests();
 //		http.exceptionHandling().authenticationEntryPoint(authenticationEntryPoint);
 		// http.formLogin().successHandler(authenticationSuccessHandler);
