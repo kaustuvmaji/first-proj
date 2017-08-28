@@ -7,12 +7,15 @@ import java.util.concurrent.CopyOnWriteArrayList;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.stereotype.*;
 
 @Controller
 @SpringBootApplication
+@ComponentScan
 public class DemoApplication {
 
 	private final CopyOnWriteArrayList<Employee> employees = new CopyOnWriteArrayList<>();
@@ -26,6 +29,11 @@ public class DemoApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(DemoApplication.class, args);
+	}
+	
+	@Bean
+    public WebSecurityConfigurerAdapter webSecurityConfigurerAdapter() {
+        return new RestAppSecurity();
 	}
 
 	@RequestMapping("/")
@@ -48,13 +56,13 @@ public class DemoApplication {
 		return welcome.toString();
 	}
 
-	@RequestMapping(value = "/listOfEmployee")
+	@RequestMapping(value = "/services/listOfEmployee")
 	@ResponseBody
 	CopyOnWriteArrayList<Employee> getEmployees(Integer id) {
 		return employees;
 	}
 
-	@RequestMapping(value = "/employeeDetail", method = { org.springframework.web.bind.annotation.RequestMethod.GET })
+	@RequestMapping(value = "/services/employeeDetail", method = { org.springframework.web.bind.annotation.RequestMethod.GET })
 	@ResponseBody
 	Employee getEmployee(@RequestParam("id") Integer id) {
 		Employee emp = null;
@@ -68,7 +76,7 @@ public class DemoApplication {
 		return emp;
 	}
 
-	@RequestMapping(value = "/addEmployee", method = { org.springframework.web.bind.annotation.RequestMethod.GET,
+	@RequestMapping(value = "/services/addEmployee", method = { org.springframework.web.bind.annotation.RequestMethod.GET,
 			org.springframework.web.bind.annotation.RequestMethod.POST })
 	@ResponseBody
 	Employee getEmployees1(@RequestParam("id") Integer id, @RequestParam("name") String name,
@@ -78,7 +86,7 @@ public class DemoApplication {
 		return emp;
 	}
 
-	@RequestMapping(value = "/deleteEmployee", method = { org.springframework.web.bind.annotation.RequestMethod.GET,
+	@RequestMapping(value = "/services/deleteEmployee", method = { org.springframework.web.bind.annotation.RequestMethod.GET,
 			org.springframework.web.bind.annotation.RequestMethod.POST })
 	@ResponseBody
 	Employee deleteEmployee(@RequestParam("id") Integer id,
@@ -96,7 +104,7 @@ public class DemoApplication {
 		return null;
 	}
 
-	@RequestMapping(value = "/updateEmployee", method = { org.springframework.web.bind.annotation.RequestMethod.GET,
+	@RequestMapping(value = "/services/updateEmployee", method = { org.springframework.web.bind.annotation.RequestMethod.GET,
 			org.springframework.web.bind.annotation.RequestMethod.POST })
 	@ResponseBody
 	Employee updateEmployee(@RequestParam("id") Integer id, @RequestParam(value = "name", required = false) String name,
