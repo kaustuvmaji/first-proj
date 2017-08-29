@@ -3,8 +3,6 @@
  */
 package com.example.demo;
 
-import java.time.LocalDate;
-import java.time.LocalTime;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 import org.springframework.http.MediaType;
@@ -17,8 +15,13 @@ import org.springframework.web.bind.annotation.RestController;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 
+/**
+ * 
+ * @author KMaji
+ *
+ */
 @RequestMapping("/employee/services")
-@Api(value = "/employee/services", description = "Operations about employee services", consumes = "application/json")
+@Api(value = "/employee/services", description = "Employee management services", consumes = "application/json")
 @RestController()
 public class EmployeeRestController {
 
@@ -31,34 +34,16 @@ public class EmployeeRestController {
 		employees.add(new Employee(4, "Sam", "Hr"));
 	}
 
-	@RequestMapping("/")
-	@ResponseBody
-	String home() {
-		StringBuffer welcome = new StringBuffer();
-		welcome.append("<center><h1>Welcome to Spring boot example. !!!</h1></center></br>");
-		welcome.append(" This poc will cover spring boot app with scrud examples. </br>");
-		welcome.append(" Default media type is jason </br>");
-		welcome.append("List of services and urls are as following </br>");
-		welcome.append("<ul>");
-		welcome.append("<li> List of Employees url will be  Example of Read -> /listOfEmployee </li>");
-		welcome.append("<li> Employee Detail url will be id match Example of Read -> /employeeDetail </li>");
-		welcome.append("<li> Add employee  url will be id match Example of Create-> /addEmployee </li>");
-		welcome.append("<li> Add employee  url will be id match Example of Update-> /updateEmployee </li>");
-		welcome.append("<li> Add employee  url will be id match Example of delete-> /deleteEmployee </li>");
-		welcome.append("</ul>");
-		welcome.append("Date -> " + LocalDate.now() + " :: " + LocalTime.now());
-		return welcome.toString();
-	}
-
 	@RequestMapping(value = "/listOfEmployee", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
-	@ApiOperation(value = "fetch all employee details", notes = "Avialable employees", response = Employee.class, responseContainer = "List")
-	CopyOnWriteArrayList<Employee> getEmployees(Integer id) {
+	@ApiOperation(value = "All employee details", notes = "Avialable employees", response = Employee.class, responseContainer = "List")
+	CopyOnWriteArrayList<Employee> getEmployees() {
 		return employees;
 	}
 
 	@RequestMapping(value = "/employeeDetail", method = { org.springframework.web.bind.annotation.RequestMethod.GET })
 	@ResponseBody
+	@ApiOperation(value = "Employee detail by id", notes = "Employee detail", response = Employee.class)
 	Employee getEmployee(@RequestParam("id") Integer id) {
 		Employee emp = null;
 
@@ -71,10 +56,11 @@ public class EmployeeRestController {
 		return emp;
 	}
 
-	@RequestMapping(value = "/addEmployee", method = { org.springframework.web.bind.annotation.RequestMethod.GET,
+	@RequestMapping(value = "/addEmployee", method = { /* org.springframework.web.bind.annotation.RequestMethod.GET, */
 			org.springframework.web.bind.annotation.RequestMethod.POST })
 	@ResponseBody
-	Employee getEmployees1(@RequestParam("id") Integer id, @RequestParam("name") String name,
+	@ApiOperation(value = "Add Employee", notes = "Employee add", response = Employee.class)
+	Employee addEmployees(@RequestParam("id") Integer id, @RequestParam("name") String name,
 			@RequestParam(value = "department", required = false, defaultValue = "dev") String department) {
 		Employee emp = new Employee(id, name, department);
 		employees.add(emp);
@@ -84,6 +70,7 @@ public class EmployeeRestController {
 	@RequestMapping(value = "/deleteEmployee", method = {
 			org.springframework.web.bind.annotation.RequestMethod.DELETE })
 	@ResponseBody
+	@ApiOperation(value = "Employee deletion", notes = "Employee delete", response = Employee.class)
 	Employee deleteEmployee(@RequestParam("id") Integer id) {
 
 		for (Employee emp : employees) {
@@ -98,9 +85,10 @@ public class EmployeeRestController {
 		return null;
 	}
 
-	@RequestMapping(value = "/updateEmployee", method = { org.springframework.web.bind.annotation.RequestMethod.GET,
-			org.springframework.web.bind.annotation.RequestMethod.POST })
+	@RequestMapping(value = "/updateEmployee", method = { /*org.springframework.web.bind.annotation.RequestMethod.GET,*/
+			org.springframework.web.bind.annotation.RequestMethod.PUT })
 	@ResponseBody
+	@ApiOperation(value = "Employee details update", notes = "present scope: Only department details updation", response = Employee.class)
 	Employee updateEmployee(@RequestParam("id") Integer id, @RequestParam(value = "name", required = false) String name,
 			@RequestParam(value = "department", required = true) String department) {
 		for (Employee emp : employees) {
