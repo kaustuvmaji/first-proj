@@ -14,7 +14,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+
 @RequestMapping("/employee/services")
+@Api(value = "/employee/services", description = "Operations about employee services", consumes = "application/json")
 @RestController()
 public class EmployeeRestController {
 
@@ -46,8 +50,9 @@ public class EmployeeRestController {
 		return welcome.toString();
 	}
 
-	@RequestMapping(value = "/listOfEmployee",method=RequestMethod.GET,produces = MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value = "/listOfEmployee", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
+	@ApiOperation(value = "fetch all employee details", notes = "Avialable employees", response = Employee.class, responseContainer = "List")
 	CopyOnWriteArrayList<Employee> getEmployees(Integer id) {
 		return employees;
 	}
@@ -76,7 +81,8 @@ public class EmployeeRestController {
 		return emp;
 	}
 
-	@RequestMapping(value = "/deleteEmployee", method = { org.springframework.web.bind.annotation.RequestMethod.DELETE})
+	@RequestMapping(value = "/deleteEmployee", method = {
+			org.springframework.web.bind.annotation.RequestMethod.DELETE })
 	@ResponseBody
 	Employee deleteEmployee(@RequestParam("id") Integer id) {
 
@@ -92,8 +98,7 @@ public class EmployeeRestController {
 		return null;
 	}
 
-	@RequestMapping(value = "/updateEmployee", method = {
-			org.springframework.web.bind.annotation.RequestMethod.GET,
+	@RequestMapping(value = "/updateEmployee", method = { org.springframework.web.bind.annotation.RequestMethod.GET,
 			org.springframework.web.bind.annotation.RequestMethod.POST })
 	@ResponseBody
 	Employee updateEmployee(@RequestParam("id") Integer id, @RequestParam(value = "name", required = false) String name,
