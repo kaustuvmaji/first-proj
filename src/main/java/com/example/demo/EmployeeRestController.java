@@ -16,12 +16,13 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 
 /**
+ * Employee management services
  * 
  * @author KMaji
  *
  */
 @RequestMapping("/employee/services")
-@Api(value = "/employee/services", description = "Employee management services", consumes = "application/json")
+@Api(value = "/employee/services", description = "Employee management services", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 @RestController()
 public class EmployeeRestController {
 
@@ -34,9 +35,9 @@ public class EmployeeRestController {
 		employees.add(new Employee(4, "Sam", "Hr"));
 	}
 
-	@RequestMapping(value = "/listOfEmployee", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value = "/listOfEmployee", method = RequestMethod.GET, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
-	@ApiOperation(value = "All employee details", notes = "Avialable employees", response = Employee.class, responseContainer = "List")
+	@ApiOperation(value = "All employee details", notes = "Avialable employees", response = Employee.class, responseContainer = "List", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 	CopyOnWriteArrayList<Employee> getEmployees() {
 		return employees;
 	}
@@ -57,9 +58,9 @@ public class EmployeeRestController {
 	}
 
 	@RequestMapping(value = "/addEmployee", method = { /* org.springframework.web.bind.annotation.RequestMethod.GET, */
-			org.springframework.web.bind.annotation.RequestMethod.POST })
+			org.springframework.web.bind.annotation.RequestMethod.POST }, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
-	@ApiOperation(value = "Add Employee", notes = "Employee add", response = Employee.class)
+	@ApiOperation(value = "Add Employee", notes = "Employee add", response = Employee.class, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 	Employee addEmployees(@RequestParam("id") Integer id, @RequestParam("name") String name,
 			@RequestParam(value = "department", required = false, defaultValue = "dev") String department) {
 		Employee emp = new Employee(id, name, department);
@@ -68,9 +69,9 @@ public class EmployeeRestController {
 	}
 
 	@RequestMapping(value = "/deleteEmployee", method = {
-			org.springframework.web.bind.annotation.RequestMethod.DELETE })
+			org.springframework.web.bind.annotation.RequestMethod.DELETE }, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
-	@ApiOperation(value = "Employee deletion", notes = "Employee delete", response = Employee.class)
+	@ApiOperation(value = "Employee deletion", notes = "Employee delete", response = Employee.class, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 	Employee deleteEmployee(@RequestParam("id") Integer id) {
 
 		for (Employee emp : employees) {
@@ -86,9 +87,9 @@ public class EmployeeRestController {
 	}
 
 	@RequestMapping(value = "/updateEmployee", method = { /*org.springframework.web.bind.annotation.RequestMethod.GET,*/
-			org.springframework.web.bind.annotation.RequestMethod.PUT })
+			org.springframework.web.bind.annotation.RequestMethod.PUT }, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
-	@ApiOperation(value = "Employee details update", notes = "present scope: Only department details updation", response = Employee.class)
+	@ApiOperation(value = "Employee details update", notes = "present scope: Only department details updation", response = Employee.class, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 	Employee updateEmployee(@RequestParam("id") Integer id, @RequestParam(value = "name", required = false) String name,
 			@RequestParam(value = "department", required = true) String department) {
 		for (Employee emp : employees) {
