@@ -54,11 +54,11 @@ public class EmployeeRestController {
 	}
 
 	@RequestMapping(value = "/deleteEmployee", method = {
-			org.springframework.web.bind.annotation.RequestMethod.DELETE }, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+			org.springframework.web.bind.annotation.RequestMethod.DELETE })
 	@ResponseBody
-	@ApiOperation(value = "Employee deletion", notes = "Employee delete", response = Employee.class, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-	Employee deleteEmployee(@RequestParam("id") Integer id) {
-		return employeeService.deleteEmployee(id);
+	@ApiOperation(value = "Employee deletion", notes = "Employee delete")
+	void deleteEmployee(@RequestParam("id") Integer id) {
+		/* return */ employeeService.deleteEmployee(id);
 	}
 
 	@RequestMapping(value = "/updateEmployee", method = {

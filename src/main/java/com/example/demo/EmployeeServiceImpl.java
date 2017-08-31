@@ -45,9 +45,8 @@ public final class EmployeeServiceImpl implements EmployeeService {
 	 * @see com.example.demo.EmployeeService#deleteEmployee(java.lang.Integer)
 	 */
 	@LogMethodExecution
-	public Employee deleteEmployee(Integer id) {
-		Employee deletedEmployee = employees.remove(id);
-		return deletedEmployee;
+	public void deleteEmployee(Integer id) {
+		employees.remove(id);
 	}
 
 	/*
