@@ -23,7 +23,10 @@ public class Swagger2Config {
 
 	private ApiInfo apiInfo() {
 		ApiInfo apiInfo = new ApiInfo("Spring Boot Rest App Example",
-				"This is an spring boot example rest app. secruity credential kaustuv/pass@123. Click list Operations tab to explore operations "
+				"This is an spring boot example rest app. secruity credential kaustuv/pass@123. Click list Operations tab to explore operations. "
+						+ "Enabled eh-cahce for read services."
+						+ " Used AOP @around to evaluate the each method execution time this will be useful "
+						+ "during performance test evaluation."
 						+ "\n",
 				"1.0.0", "free for learning no terms",
 				new springfox.documentation.service.Contact("Kaustuv Maji", "http://kaustuvmaji.blogspot.in/",
