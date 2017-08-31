@@ -2,7 +2,12 @@ package com.example.demo;
 
 import java.io.Serializable;
 
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlRootElement;
 
+@XmlAccessorType(XmlAccessType.FIELD)
+@XmlRootElement
 public class Employee implements Serializable {
 
 	private static final long serialVersionUID = 7098286166079680079L;
