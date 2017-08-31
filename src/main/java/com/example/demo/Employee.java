@@ -14,9 +14,9 @@ public class Employee implements Serializable {
 		this.department = department;
 	}
 
-	Integer id;
-	String name;
-	String department;
+	private Integer id;
+	private String name;
+	private String department;
 
 	public Integer getId() {
 		return id;
@@ -46,7 +46,6 @@ public class Employee implements Serializable {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((department == null) ? 0 : department.hashCode());
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
 		result = prime * result + ((name == null) ? 0 : name.hashCode());
 		return result;
@@ -61,11 +60,6 @@ public class Employee implements Serializable {
 		if (getClass() != obj.getClass())
 			return false;
 		Employee other = (Employee) obj;
-		if (department == null) {
-			if (other.department != null)
-				return false;
-		} else if (!department.equals(other.department))
-			return false;
 		if (id == null) {
 			if (other.id != null)
 				return false;
@@ -79,4 +73,8 @@ public class Employee implements Serializable {
 		return true;
 	}
 
+	@Override
+	public String toString() {
+		return "Employee [id=" + id + ", name=" + name + ", department=" + department + "]";
+	}
 }

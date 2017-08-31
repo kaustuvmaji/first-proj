@@ -3,13 +3,16 @@ package com.example.demo;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.annotation.ComponentScan;
+//import org.springframework.context.annotation.ImportResource;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 @SpringBootApplication
-@ComponentScan
+//@ImportResource("classpath:cache-config.xml") // if we want to configure things in xml.
+@ComponentScan(basePackages="com.example.demo")
 @EnableAutoConfiguration
 public class DemoApplication {
 
