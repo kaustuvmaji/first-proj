@@ -23,6 +23,7 @@ public final class EmployeeServiceImpl implements EmployeeService {
 	 */
 	@Cacheable(value = "employeeCache", key = "#id", sync = true)
 	@Override
+	@LogMethodExecution
 	public Employee getEmployee(Integer id) {
 		return employees.get(id);
 	}
@@ -33,6 +34,7 @@ public final class EmployeeServiceImpl implements EmployeeService {
 	 * @see com.example.demo.EmployeeService#addEmployees(com.example.demo.Employee)
 	 */
 	@Override
+	@LogMethodExecution
 	public Employee addEmployees(Employee newEmp) {
 		return employees.put(newEmp.getId(), newEmp);
 	}
@@ -42,6 +44,7 @@ public final class EmployeeServiceImpl implements EmployeeService {
 	 * 
 	 * @see com.example.demo.EmployeeService#deleteEmployee(java.lang.Integer)
 	 */
+	@LogMethodExecution
 	public Employee deleteEmployee(Integer id) {
 		Employee deletedEmployee = employees.remove(id);
 		return deletedEmployee;
@@ -53,6 +56,7 @@ public final class EmployeeServiceImpl implements EmployeeService {
 	 * @see com.example.demo.EmployeeService#updateEmployee(java.lang.Integer,
 	 * java.lang.String, java.lang.String)
 	 */
+	@LogMethodExecution
 	public Employee updateEmployee(Integer id, String name, String department) {
 		Employee modEmp = employees.get(id);
 		if (StringUtils.hasLength(name))
@@ -68,6 +72,7 @@ public final class EmployeeServiceImpl implements EmployeeService {
 	 * @see com.example.demo.EmployeeService#getEmployees()
 	 */
 	@Cacheable(value = "employeeCache", sync = true)
+	@LogMethodExecution
 	public Collection<Employee> getEmployees() {
 		return employees.values();
 	}
