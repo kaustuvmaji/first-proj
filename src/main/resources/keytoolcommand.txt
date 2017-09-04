@@ -18,5 +18,4 @@ What is the two-letter country code for this unit?
 Is CN=kaustuvmaji, OU=dev, O=kaustuvmajiblogspot, L=kolkata, ST=wb, C=in correct?
   [no]:  yes
 
-keytool error: java.io.FileNotFoundException: kaustuvspringboot.keystore (Access is denied)
-PS C:\Program Files\Java\jdk1.8.0_131\jre\lib>
+java -Djavax.net.debug=all -jar target/com.kaustuv.spring.example.boot.rest-0.0.1-SNAPSHOT.jar
