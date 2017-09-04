@@ -1,0 +1,22 @@
+keytool command
+
+PS C:\Program Files\Java\jdk1.8.0_131\jre\lib> keytool -genkey -alias kaustuvspringbootpoc -storetype PKCS12 -keyalg RSA -keysize 2048 -keystore kaustuvspringboot.keystore -validity 3650
+Enter keystore password:
+Re-enter new password:
+What is your first and last name?
+  [Unknown]:  kaustuvmaji
+What is the name of your organizational unit?
+  [Unknown]:  dev
+What is the name of your organization?
+  [Unknown]:  kaustuvmajiblogspot
+What is the name of your City or Locality?
+  [Unknown]:  kolkata
+What is the name of your State or Province?
+  [Unknown]:  wb
+What is the two-letter country code for this unit?
+  [Unknown]:  in
+Is CN=kaustuvmaji, OU=dev, O=kaustuvmajiblogspot, L=kolkata, ST=wb, C=in correct?
+  [no]:  yes
+
+keytool error: java.io.FileNotFoundException: kaustuvspringboot.keystore (Access is denied)
+PS C:\Program Files\Java\jdk1.8.0_131\jre\lib>
