@@ -82,4 +82,10 @@ public class Employee implements Serializable {
 	public String toString() {
 		return "Employee [id=" + id + ", name=" + name + ", department=" + department + "]";
 	}
+
+	public Employee updateEmployee(String name2, String department2) {
+		this.department = department2;
+		this.name = name2;
+		return this;
+	}
 }

@@ -7,10 +7,10 @@ import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 
 @Component
-public /* Mockito failed to mock this class final */ class EmployeeServiceImpl implements EmployeeService {
+public /* Mockito failed to mock this class because of final keyword */ class EmployeeServiceImpl implements EmployeeService {
 
 	EmployeeServiceImpl() {
-		
+
 		employees.put(1, new Employee(1, "Josh", "dev"));
 		employees.put(2, new Employee(2, "Rev", "qa"));
 		employees.put(3, new Employee(3, "Kaustuv", "dev"));
@@ -58,12 +58,7 @@ public /* Mockito failed to mock this class final */ class EmployeeServiceImpl i
 	 */
 	@LogMethodExecution
 	public Employee updateEmployee(Integer id, String name, String department) {
-		Employee modEmp = employees.get(id);
-		if (StringUtils.hasLength(name))
-			modEmp.setName(name);
-		if (StringUtils.hasLength(department))
-			modEmp.setDepartment(department);
-		return employees.put(id, modEmp);
+		return employees.compute(id, (k, v) -> v.updateEmployee(name, department));
 	}
 
 	/*

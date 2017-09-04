@@ -28,7 +28,6 @@ public class EmployeeServiceMockitoTests {
 		Assert.assertEquals("Josh", employeeService.getEmployee(1).getName());
 		// Mockito.verify(employeeService,
 		// Mockito.times(1)).count(Mockito.any(CriteriaDto.class));
-
 	}
 
 	@Test
