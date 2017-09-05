@@ -1,8 +1,10 @@
 package com.example.demo;
 
+import org.aopalliance.intercept.Joinpoint;
 import org.apache.log4j.Logger;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.Signature;
+import org.aspectj.lang.annotation.AfterReturning;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.springframework.stereotype.Component;
@@ -27,5 +29,10 @@ public class LogAspect {
 		LOG.info("[---] ## > Exiting " + signature.getDeclaringTypeName() + "::" + signature.getName() + "(...)");
 		LOG.info("## > " + signature.getName() + "(...) executed in " + executionTime + "ms");
 		return proceed;
+	}
+	
+	@AfterReturning("execution(com.example.demo*(..)")
+	public void logMethodExecutionFinish(Joinpoint jp) {
+		LOG.info("<---------------------------------------->");
 	}
 }
