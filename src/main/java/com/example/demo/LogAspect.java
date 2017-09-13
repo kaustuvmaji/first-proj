@@ -31,8 +31,8 @@ public class LogAspect {
 		return proceed;
 	}
 	
-	@AfterReturning("execution(com.example.demo*(..)")
-	public void logMethodExecutionFinish(Joinpoint jp) {
-		LOG.info("<---------------------------------------->");
-	}
+//	@AfterReturning("execution(com.example.demo*(..)")
+//	public void logMethodExecutionFinish(Joinpoint jp) {
+//		LOG.info("<---------------------------------------->");
+//	}
 }

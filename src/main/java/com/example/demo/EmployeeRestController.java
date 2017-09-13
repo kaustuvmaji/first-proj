@@ -7,6 +7,7 @@ import java.util.Collection;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -32,6 +33,7 @@ public class EmployeeRestController {
 
 	@RequestMapping(value = "/listOfEmployee", method = RequestMethod.GET, produces = {MediaType.APPLICATION_JSON_VALUE})
 	@ResponseBody
+	@Secured("ROLE_USER")
 	@ApiOperation(value = "All employee details", notes = "Avialable employees", response = Employee.class, responseContainer = "List", produces = MediaType.APPLICATION_JSON_VALUE)
 	Collection<Employee> getEmployees() {
 		return employeeService.getEmployees();
@@ -39,6 +41,7 @@ public class EmployeeRestController {
 
 	@RequestMapping(value = "/employeeDetail", method = { org.springframework.web.bind.annotation.RequestMethod.GET })
 	@ResponseBody
+	@Secured("ROLE_ADMIN")
 	@ApiOperation(value = "Employee detail by id", notes = "Employee detail", response = Employee.class)
 	Employee getEmployee(@RequestParam("id") Integer id) {
 		return employeeService.getEmployee(id);
@@ -48,6 +51,7 @@ public class EmployeeRestController {
 			org.springframework.web.bind.annotation.RequestMethod.POST }, produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
 	@ApiOperation(value = "Add Employee", notes = "Employee add", response = Employee.class, produces = MediaType.APPLICATION_JSON_VALUE)
+	@Secured("ROLE_ADMIN")
 	Employee addEmployees(@RequestParam("id") Integer id, @RequestParam("name") String name,
 			@RequestParam(value = "department", required = false, defaultValue = "dev") String department) {
 		return employeeService.addEmployees(new Employee(id, name, department));
@@ -56,6 +60,7 @@ public class EmployeeRestController {
 	@RequestMapping(value = "/deleteEmployee", method = {
 			org.springframework.web.bind.annotation.RequestMethod.DELETE })
 	@ResponseBody
+	@Secured("ROLE_ADMIN")
 	@ApiOperation(value = "Employee deletion", notes = "Employee delete")
 	void deleteEmployee(@RequestParam("id") Integer id) {
 		/* return */ employeeService.deleteEmployee(id);
@@ -64,6 +69,7 @@ public class EmployeeRestController {
 	@RequestMapping(value = "/updateEmployee", method = {
 			org.springframework.web.bind.annotation.RequestMethod.PUT },produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
+	@Secured("ROLE_ADMIN")
 	@ApiOperation(value = "Employee details update", notes = "present scope: Only department details updation", response = Employee.class, produces = MediaType.APPLICATION_JSON_VALUE)
 	Employee updateEmployee(@RequestParam("id") Integer id, @RequestParam(value = "name", required = false) String name,
 			@RequestParam(value = "department", required = true) String department) {
