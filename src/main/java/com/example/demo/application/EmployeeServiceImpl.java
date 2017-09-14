@@ -1,22 +1,26 @@
-package com.example.demo;
+package com.example.demo.application;
 
 import java.util.Collection;
 
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Component;
-import org.springframework.util.StringUtils;
 
+import com.example.demo.application.aop.LogMethodExecution;
+import com.example.demo.domain.Employee;
+import com.example.demo.domain.EmployeeService;
+
+/**
+ * 
+ * @author KMaji
+ *
+ */
 @Component
-public /* Mockito failed to mock this class because of final keyword */ class EmployeeServiceImpl implements EmployeeService {
+public class EmployeeServiceImpl implements EmployeeService {
 
 	EmployeeServiceImpl() {
-
-		employees.put(1, new Employee(1, "Josh", "dev"));
-		employees.put(2, new Employee(2, "Rev", "qa"));
-		employees.put(3, new Employee(3, "Kaustuv", "dev"));
-		employees.put(4, new Employee(4, "Sam", "Hr"));
+		populate();
 	}
-	
+
 	/*
 	 * (non-Javadoc)
 	 * 

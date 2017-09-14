@@ -8,6 +8,9 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import com.example.demo.domain.Employee;
+import com.example.demo.domain.EmployeeService;
+
 import org.junit.Assert;
 
 @ActiveProfiles("test")

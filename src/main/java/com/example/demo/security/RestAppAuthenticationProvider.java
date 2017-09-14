@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.example.demo;
+package com.example.demo.security;
 
 import java.util.Collection;
 import java.util.HashMap;
@@ -18,6 +18,8 @@ import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Component;
 
 /**
+ * This class provides the username password authentication implementation.
+ * 
  * @author KMaji
  *
  */
@@ -39,9 +41,6 @@ public class RestAppAuthenticationProvider implements AuthenticationProvider {
 		users.put("kaustuv", new AppUser("kaustuv", "pass@123", ROLE_ADMIN, ROLE_USER));
 		users.put("user", new AppUser("user", "user@123", ROLE_USER));
 		users.put("admin", new AppUser("admin", "admin@123", ROLE_ADMIN));
-		LOG.info("@@@@@@@@@@");
-		LOG.info(users);
-
 	}
 
 	/*
@@ -52,22 +51,35 @@ public class RestAppAuthenticationProvider implements AuthenticationProvider {
 	 */
 	@Override
 	public Authentication authenticate(Authentication authentication) throws AuthenticationException {
-
-		String user = authentication.getName().toString().trim();
-		LOG.info(user);
-		String password = authentication.getCredentials().toString().trim();
-		LOG.info(password);
-		AppUser appuser = users.get(user);
-		LOG.info(appuser);
-		String[] roles = appuser.getRole();
-		if (roles != null) {
-			Collection<GrantedAuthority> grantedAuths = /* new SimpleGrantedAuthority(role.trim()) */ AuthorityUtils
-					.createAuthorityList(roles);
-			return new UsernamePasswordAuthenticationToken(new User(user, password, grantedAuths), password,
-					grantedAuths);
-		} else {
+		// -ve scenario 1 : authentication object should not be null. very rare case.
+		// mostly
+		// configuration issues
+		if (null == authentication) {
 			return null;
 		}
+
+		// -ve scenario 2 : authentication name and credentials should not be null. very
+		// rare
+		// case. mostly configuration issues
+		if (null == authentication.getName() && null == authentication.getCredentials()) {
+			return null;
+		}
+
+		String user = authentication.getName().trim();
+		String password = authentication.getCredentials().toString().trim();
+		AppUser appuser = users.get(user);
+		if (LOG.isDebugEnabled()) {
+			LOG.debug("Security user detail { " + appuser + " }");
+		}
+		String[] roles = appuser.getRole();
+
+		// -ve scenario 3 : user with empty roles is not eligible to access roles based
+		// services :(
+		if (null == roles || 0 == roles.length) {
+			return null;
+		}
+		Collection<GrantedAuthority> grantedAuths = AuthorityUtils.createAuthorityList(roles);
+		return new UsernamePasswordAuthenticationToken(new User(user, password, grantedAuths), password, grantedAuths);
 	}
 
 	/*
@@ -79,6 +91,9 @@ public class RestAppAuthenticationProvider implements AuthenticationProvider {
 	 */
 	@Override
 	public boolean supports(Class<?> authentication) {
+		// only username password plaintext token is used to secure this spring boot
+		// rest app. in this step we are registering the type of authentication this
+		// RestAppAuthenticationProvider class supports.
 		return UsernamePasswordAuthenticationToken.class.isAssignableFrom(authentication);
 	}
 

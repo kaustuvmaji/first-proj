@@ -1,31 +1,24 @@
-package com.example.demo;
+package com.example.demo.security;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import org.springframework.util.CollectionUtils;
 
 /**
  * 
  * @author KMaji
  *
  */
-public class AppUser /*extends User*/{
+public class AppUser{
 
 	private String userName;
 	private String password;
 	private List<String> role;
 
 	public String[] getRole() {
-		String[] roles = new String[role.size()];
-		if (!CollectionUtils.isEmpty(role)) {
-			int count = 0;
-			for (String each : role) {
-				roles[count++] = each;
-			}
-			return roles;
+		if (null == role || role.isEmpty()) {
+			return null;
 		}
-		return null;
+		return role.toArray(new String[role.size()]);
 	}
 
 	public void setRole(List<String> role) {

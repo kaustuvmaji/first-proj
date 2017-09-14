@@ -6,10 +6,7 @@ import org.apache.log4j.Logger;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-//import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.annotation.ComponentScan;
-//import org.springframework.scheduling.annotation.EnableScheduling;
-//import org.springframework.scheduling.annotation.Scheduled;
 //import org.springframework.context.annotation.ImportResource;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,14 +15,17 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @SpringBootApplication
 // @ImportResource("classpath:cache-config.xml") // if we want to configure
 // things in xml.
-@ComponentScan(basePackages = "com.example.demo")
+@ComponentScan(basePackages = { "com.example.demo", "com.example.demo.app.configuration",
+		"com.example.demo.application", "com.example.demo.application.aop", "com.example.demo.restinterface",
+		"com.example.demo.scheduler", "com.example.demo.security" })
 @EnableAutoConfiguration
 public class DemoApplication {
 
-//	private static final Logger LOG = Logger.getLogger(DemoApplication.class);
+	private static final Logger LOG = Logger.getLogger(DemoApplication.class);
 
 	public static void main(String[] args) {
 		SpringApplication.run(DemoApplication.class, args);
+		LOG.info("com.kaustuv.spring.example.boot.rest started at " + LocalDateTime.now());
 	}
 
 	/**
@@ -45,10 +45,4 @@ public class DemoApplication {
 		}
 
 	}
-
-	// @Bean
-	// public WebSecurityConfigurerAdapter webSecurityConfigurerAdapter() {
-	// return new RestAppSecurity();
-	// }
-
 }
