@@ -10,9 +10,10 @@ import com.example.demo.domain.Employee;
 import com.example.demo.domain.EmployeeService;
 
 /**
+ * This class is hold the actual implementaiton that domain services provided to
+ * other layer of domain driven design. Some of the methods are cachable.
  * 
  * @author KMaji
- *
  */
 @Component
 public class EmployeeServiceImpl implements EmployeeService {
