@@ -12,12 +12,14 @@ import com.example.demo.application.aop.LogMethodExecution;
 @Configuration
 @EnableScheduling
 public class ScheduleJob {
-	private static final Logger logger = Logger.getLogger(ScheduleJob.class);
+	private static final Logger LOG = Logger.getLogger(ScheduleJob.class);
 
 	@LogMethodExecution
 	@Scheduled(initialDelay = 1000, fixedRate = 10000)
 	public void run() {
-		logger.info(
-				"Spring Boot Scheduling job example This message is from scheduled job -> :: " + LocalDateTime.now());
+		if (LOG.isDebugEnabled()) {
+			LOG.debug("Spring Boot Scheduling job example This message is from scheduled job -> :: "
+					+ LocalDateTime.now());
+		}
 	}
 }

@@ -29,19 +29,26 @@ public class LogAspect {
 	 * 
 	 * @param joinPoint
 	 *            this provides the entry point of this rest app.
-	 * @return 
+	 * @return
 	 * @throws Throwable
 	 */
 	@Around("@annotation(LogMethodExecution)")
 	public Object logExecutionTime(ProceedingJoinPoint joinPoint) throws Throwable {
 		Signature signature = joinPoint.getSignature();
-		LOG.info(joinPoint.getClass());
-		LOG.info("[---] ## > Entering " + signature.getDeclaringTypeName() + "::" + signature.getName() + "(...)");
+		if (LOG.isDebugEnabled()) {
+			LOG.debug(joinPoint.getClass());
+			LOG.debug("[---] ## > Entering " + signature.getDeclaringTypeName() + "::" + signature.getName() + "(...)");
+		}
+
 		long start = System.currentTimeMillis();
 		Object proceed = joinPoint.proceed();
 		long executionTime = System.currentTimeMillis() - start;
-		LOG.info("[---] ## > Exiting " + signature.getDeclaringTypeName() + "::" + signature.getName() + "(...)");
-		LOG.info("## > " + signature.getName() + "(...) executed in " + executionTime + "ms");
+		if (LOG.isDebugEnabled()) {
+			LOG.debug("[---] ## > Exiting " + signature.getDeclaringTypeName() + "::" + signature.getName() + "(...)");
+		}
+		if (LOG.isTraceEnabled()) {
+			LOG.trace("## > " + signature.getName() + "(...) executed in " + executionTime + "ms");
+		}
 		return proceed;
 	}
 }

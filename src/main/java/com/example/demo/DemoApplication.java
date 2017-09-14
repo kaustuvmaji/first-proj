@@ -25,7 +25,9 @@ public class DemoApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(DemoApplication.class, args);
-		LOG.info("com.kaustuv.spring.example.boot.rest started at " + LocalDateTime.now());
+		if (LOG.isDebugEnabled()) {
+			LOG.debug("com.kaustuv.spring.example.boot.rest started at " + LocalDateTime.now());	
+		}
 	}
 
 	/**
