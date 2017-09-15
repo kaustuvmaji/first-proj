@@ -2,6 +2,8 @@ package com.example.demo.domain;
 
 import java.io.Serializable;
 
+import org.springframework.util.StringUtils;
+
 /**
  * Employee domain class
  * 
@@ -84,8 +86,14 @@ public class Employee implements Serializable {
 	}
 
 	public Employee updateEmployee(String name2, String department2) {
-		this.department = department2;
-		this.name = name2;
+		if (null != department2 && !department2.isEmpty() && !"null".equalsIgnoreCase(department2)) {
+			this.department = department2;
+		}
+		if (null != name2 && !name2.isEmpty() && !"null".equalsIgnoreCase(name2)) {
+			this.name = name2;
+		}
+		
+		
 		return this;
 	}
 }
