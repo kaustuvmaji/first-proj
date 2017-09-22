@@ -2,11 +2,8 @@ package com.example.demo.domain;
 
 import java.io.Serializable;
 
-import org.springframework.util.StringUtils;
-
 /**
  * Employee domain class
- * 
  * @author KMaji
  *
  */

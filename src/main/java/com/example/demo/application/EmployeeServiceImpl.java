@@ -24,7 +24,6 @@ public class EmployeeServiceImpl implements EmployeeService {
 
 	/*
 	 * (non-Javadoc)
-	 * 
 	 * @see com.example.demo.EmployeeService#getEmployee(java.lang.Integer)
 	 */
 	@Cacheable(value = "employeeCache", key = "#id", sync = true)
@@ -36,7 +35,6 @@ public class EmployeeServiceImpl implements EmployeeService {
 
 	/*
 	 * (non-Javadoc)
-	 * 
 	 * @see com.example.demo.EmployeeService#addEmployees(com.example.demo.Employee)
 	 */
 	@Override
@@ -47,7 +45,6 @@ public class EmployeeServiceImpl implements EmployeeService {
 
 	/*
 	 * (non-Javadoc)
-	 * 
 	 * @see com.example.demo.EmployeeService#deleteEmployee(java.lang.Integer)
 	 */
 	@LogMethodExecution
@@ -57,7 +54,6 @@ public class EmployeeServiceImpl implements EmployeeService {
 
 	/*
 	 * (non-Javadoc)
-	 * 
 	 * @see com.example.demo.EmployeeService#updateEmployee(java.lang.Integer,
 	 * java.lang.String, java.lang.String)
 	 */
@@ -68,7 +64,6 @@ public class EmployeeServiceImpl implements EmployeeService {
 
 	/*
 	 * (non-Javadoc)
-	 * 
 	 * @see com.example.demo.EmployeeService#getEmployees()
 	 */
 	@Cacheable(value = "employeeCache", sync = true)

@@ -26,7 +26,6 @@ public class LogAspect {
 	/**
 	 * This method log the execution timeline of business methods which are
 	 * annotated with {@link LogMethodExecution}
-	 * 
 	 * @param joinPoint
 	 *            this provides the entry point of this rest app.
 	 * @return
@@ -47,7 +46,7 @@ public class LogAspect {
 			LOG.debug("[---] ## > Exiting " + signature.getDeclaringTypeName() + "::" + signature.getName() + "(...)");
 		}
 		if (LOG.isTraceEnabled()) {
-			LOG.trace("## > " + signature.getName() + "(...) executed in " + executionTime + "ms");
+			LOG.trace("## > "+ signature.getDeclaringTypeName() + "::" + signature.getName() + "(...) executed in " + executionTime + "ms");
 		}
 		return proceed;
 	}

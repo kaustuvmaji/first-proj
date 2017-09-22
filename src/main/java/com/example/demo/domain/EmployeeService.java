@@ -6,7 +6,6 @@ import java.util.Map;
 
 /**
  * Employee domain services.
- *  
  * @author KMaji
  *
  */
