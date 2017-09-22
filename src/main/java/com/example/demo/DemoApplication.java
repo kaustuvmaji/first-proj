@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 // things in xml.
 @ComponentScan(basePackages = { "com.example.demo", "com.example.demo.app.configuration",
 		"com.example.demo.application", "com.example.demo.application.aop", "com.example.demo.restinterface",
-		"com.example.demo.scheduler", "com.example.demo.security" })
+		"com.example.demo.scheduler", "com.example.demo.security"/*, "com.example.demo.app.management"*/ })
 @EnableAutoConfiguration
 public class DemoApplication {
 
@@ -26,7 +26,7 @@ public class DemoApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(DemoApplication.class, args);
 		if (LOG.isDebugEnabled()) {
-			LOG.debug("com.kaustuv.spring.example.boot.rest started at " + LocalDateTime.now());	
+			LOG.debug("com.kaustuv.spring.example.boot.rest started at " + LocalDateTime.now());
 		}
 	}
 

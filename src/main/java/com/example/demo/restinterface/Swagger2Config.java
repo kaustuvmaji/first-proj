@@ -23,7 +23,7 @@ public class Swagger2Config {
 
 	private ApiInfo apiInfo() {
 		ApiInfo apiInfo = new ApiInfo("Spring Boot Rest App Example",
-				"This is an spring boot example rest app. Role based secruity credentials "
+				"This is a spring boot example rest app. Role based secruity credentials "
 						+ " [user/user@123{Role: USER}], " 
 						+ " [admin/admin@123{Role: ADMIN}], "
 						+ " [kaustuv/pass@123 {Role: ADMIN,USER }] "
