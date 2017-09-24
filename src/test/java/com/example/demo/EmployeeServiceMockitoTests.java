@@ -36,8 +36,8 @@ public class EmployeeServiceMockitoTests {
 	@Test
 	public void testAddEmployee() {
 		Employee newlyAdded = new Employee(2, "Rev", "qa");
-		Mockito.when(employeeService.addEmployees(newlyAdded)).thenReturn(newlyAdded);
-		Employee addEmployees = employeeService.addEmployees(new Employee(2, "Rev", "qa"));
+		Mockito.when(employeeService.addEmployee(2, "Rev", "qa")).thenReturn(newlyAdded);
+		Employee addEmployees = employeeService.addEmployee(2, "Rev", "qa");
 		Assert.assertEquals("Rev", addEmployees.getName());
 		Assert.assertEquals("qa", addEmployees.getDepartment());
 	}

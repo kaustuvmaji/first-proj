@@ -3,7 +3,7 @@ package com.example.demo.application;
 import java.util.Collection;
 
 import org.springframework.cache.annotation.Cacheable;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import com.example.demo.application.aop.LogMethodExecution;
 import com.example.demo.domain.Employee;
@@ -15,7 +15,7 @@ import com.example.demo.domain.EmployeeService;
  * 
  * @author KMaji
  */
-@Component
+@Service
 public class EmployeeServiceImpl implements EmployeeService {
 
 	EmployeeServiceImpl() {
@@ -39,8 +39,8 @@ public class EmployeeServiceImpl implements EmployeeService {
 	 */
 	@Override
 	@LogMethodExecution
-	public Employee addEmployees(Employee newEmp) {
-		return employees.put(newEmp.getId(), newEmp);
+	public Employee addEmployee(Integer id, String name, String department) {
+		return employees.put(id, new Employee(id, name, department));
 	}
 
 	/*

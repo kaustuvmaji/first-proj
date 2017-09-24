@@ -15,7 +15,7 @@ public interface EmployeeService {
 
 	Employee getEmployee(Integer id);
 
-	Employee addEmployees(Employee newEmp);
+	Employee addEmployee(Integer id, String name, String department);
 
 	void deleteEmployee(Integer id);
 
