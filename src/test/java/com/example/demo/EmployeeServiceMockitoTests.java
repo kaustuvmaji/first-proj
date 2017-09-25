@@ -16,7 +16,7 @@ import com.example.demo.domain.EmployeeService;
 @SpringBootTest
 public class EmployeeServiceMockitoTests {
 
-	private final Employee rev = new Employee(2, "Rev", "qa");
+	private final Employee revQA = new Employee(2, "Rev", "qa");
 	@Autowired
 	EmployeeService employeeService;
 
@@ -30,15 +30,16 @@ public class EmployeeServiceMockitoTests {
 
 	@Test
 	public void testAddEmployee() {
-		Employee addEmployees = employeeService.addEmployee(rev.getId(), rev.getName(), rev.getDepartment());
-		Assert.assertEquals(rev.getName(), addEmployees.getName());
-		Assert.assertEquals(rev.getDepartment(), addEmployees.getDepartment());
+		Employee addEmployees = employeeService.addEmployee(revQA.getId(), revQA.getName(), revQA.getDepartment());
+		Assert.assertEquals(revQA.getName(), addEmployees.getName());
+		Assert.assertEquals(revQA.getDepartment(), addEmployees.getDepartment());
 	}
 
 	@Test
 	public void testUpdateEmployee() {
-		Employee updateEmployees = employeeService.updateEmployee(rev.getId(), rev.getName(), "dev");
-		Assert.assertNotEquals(rev.getDepartment(), updateEmployees.getName());
+		Employee updateEmployees = employeeService.updateEmployee(revQA.getId(), revQA.getName(), "dev");
+		Assert.assertNotEquals(revQA.getDepartment(), updateEmployees.getName());
+		Assert.assertNotEquals(revQA.getDepartment(), updateEmployees.getName());
 		Assert.assertEquals("dev", updateEmployees.getDepartment());
 	}
 }
