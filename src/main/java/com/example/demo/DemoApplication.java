@@ -32,7 +32,7 @@ public class DemoApplication {
 
 	/**
 	 * This class is responsible to redirect user to swagger ui so it will be easy
-	 * for integrator or reader to understand what type of apis are published by
+	 * for Integrator or reader to understand what type of apis are published by
 	 * this web app.
 	 * 
 	 * @author KMaji

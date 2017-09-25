@@ -1,5 +1,6 @@
 package com.example.demo;
 
+import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mockito;
@@ -10,8 +11,6 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import com.example.demo.domain.Employee;
 import com.example.demo.domain.EmployeeService;
-
-import org.junit.Assert;
 
 @ActiveProfiles("test")
 @RunWith(SpringRunner.class)
@@ -26,17 +25,12 @@ public class EmployeeServiceMockitoTests {
 
 	@Test
 	public void testGetEmployee() {
-		Mockito.when(employeeService.getEmployee(1)).thenReturn(new Employee(1, "Josh", "dev"));
-		Mockito.when(employeeService.getEmployee(2)).thenReturn(new Employee(2, "Rev", "qa"));
 		Assert.assertEquals("Josh", employeeService.getEmployee(1).getName());
-		// Mockito.verify(employeeService,
-		// Mockito.times(1)).count(Mockito.any(CriteriaDto.class));
 	}
 
 	@Test
 	public void testAddEmployee() {
-		Employee newlyAdded = new Employee(2, "Rev", "qa");
-		Mockito.when(employeeService.addEmployee(2, "Rev", "qa")).thenReturn(newlyAdded);
+		new Employee(2, "Rev", "qa");
 		Employee addEmployees = employeeService.addEmployee(2, "Rev", "qa");
 		Assert.assertEquals("Rev", addEmployees.getName());
 		Assert.assertEquals("qa", addEmployees.getDepartment());
@@ -44,9 +38,7 @@ public class EmployeeServiceMockitoTests {
 
 	@Test
 	public void testUpdateEmployee() {
-		Employee newlyAdded = new Employee(2, "Rev", "dev");
-		Mockito.when(employeeService.updateEmployee(2, "rev", "dev")).thenReturn(newlyAdded);
-		Employee updateEmployees = employeeService.updateEmployee(2, "rev", "dev");
+		Employee updateEmployees = employeeService.updateEmployee(2, "Rev", "dev");
 		Assert.assertEquals("Rev", updateEmployees.getName());
 		Assert.assertNotEquals("qa", updateEmployees.getName());
 		Assert.assertEquals("dev", updateEmployees.getDepartment());
