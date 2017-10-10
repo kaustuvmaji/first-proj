@@ -15,9 +15,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @SpringBootApplication
 // @ImportResource("classpath:cache-config.xml") // if we want to configure
 // things in xml.
-@ComponentScan(basePackages = { "com.example.demo.app.configuration",
+/*@ComponentScan(basePackages = { "com.example.demo.app.configuration",
 		"com.example.demo.application", "com.example.demo.application.aop", "com.example.demo.restinterface",
-		"com.example.demo.scheduler", "com.example.demo.security", "com.example.demo.app.management" })
+		"com.example.demo.scheduler", "com.example.demo.security", "com.example.demo.app.management" })*/
 @EnableAutoConfiguration
 public class DemoApplication {
 

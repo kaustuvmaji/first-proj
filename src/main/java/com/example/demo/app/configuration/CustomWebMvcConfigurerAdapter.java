@@ -22,8 +22,9 @@ public class CustomWebMvcConfigurerAdapter extends WebMvcConfigurerAdapter {
 		registry.addMapping("/**");
 	}
 
-	@Override
-	public void configureDefaultServletHandling(DefaultServletHandlerConfigurer configurer) {
-		configurer.enable();
-	}
+	// @Override
+	// public void configureDefaultServletHandling(DefaultServletHandlerConfigurer
+	// configurer) {
+	// configurer.enable();
+	// }
 }
