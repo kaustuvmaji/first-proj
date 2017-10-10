@@ -7,7 +7,6 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
 import org.springframework.context.annotation.Profile;
 
-import com.example.demo.application.EmployeeServiceImpl;
 import com.example.demo.domain.EmployeeService;
 
 @Profile("test")
@@ -18,10 +17,10 @@ public class MockitoConfiguration {
 	public MockitoConfiguration() {
 	}
 
-	@Bean
-	// prioritizing
-	@Primary
-	EmployeeService employeeService() {
-		return Mockito.mock(EmployeeServiceImpl.class);
-	}
+//	@Bean
+//	// prioritizing
+//	@Primary
+//	EmployeeService employeeService() {
+//		return Mockito.mock(EmployeeServiceImpl.class);
+//	}
 }

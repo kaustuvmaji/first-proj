@@ -18,6 +18,9 @@ public class Employee implements Serializable {
 		this.department = department;
 	}
 
+	@org.springframework.data.annotation.Id
+	private String collectionId;
+	
 	private Integer id;
 	private String name;
 	private String department;
