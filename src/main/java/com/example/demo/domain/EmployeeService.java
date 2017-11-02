@@ -1,21 +1,22 @@
 package com.example.demo.domain;
 
-import java.util.Collection;
+import java.util.List;
 
 /**
  * Employee domain services.
+ * 
  * @author KMaji
  *
  */
 public interface EmployeeService {
-	
-	Employee getEmployee(Integer id);
 
-	Employee addEmployee(Integer id, String name, String department);
+	Employee getEmployee(String firstName, String lastName);
 
-	Employee deleteEmployee(Integer id);
+	Employee addEmployee(Employee employee);
 
-	Employee updateEmployee(Integer id, String name, String department);
+	Employee deleteEmployee(Employee employee);
 
-	Collection<Employee> getEmployees();
+	Employee updateEmployee(Employee employee);
+
+	List<Employee> getEmployees();
 }

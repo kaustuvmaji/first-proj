@@ -1,44 +1,73 @@
 package com.example.demo.domain;
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
+import java.util.List;
+
+import org.bson.types.ObjectId;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.DBRef;
+import org.springframework.data.mongodb.core.mapping.Document;
+
+import com.example.demo.domain.util.LocalDateTimeDeserializer;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
 
 /**
  * Employee domain class
+ * 
  * @author KMaji
  *
  */
+@Document(collection = "employees")
 public class Employee implements Serializable {
 
 	private static final long serialVersionUID = 7098286166079680079L;
 
-	public Employee(Integer id, String name, String department) {
-		super();
-		this.id = id;
-		this.name = name;
-		this.department = department;
+	@Id
+	private ObjectId objectId;
+	private String firstName;
+	private String secondName;
+	@JsonSerialize(using = ToStringSerializer.class)
+	@JsonDeserialize(using = LocalDateTimeDeserializer.class)
+	private LocalDateTime dateOfBirth;
+	private List<ContactDetail> contactDetails;
+	private String department = "development";
+	private int salary;
+	@DBRef
+	private List<Assignment> assignments;
+
+	public ObjectId getObjectId() {
+		return objectId;
 	}
 
-	@org.springframework.data.annotation.Id
-	private String collectionId;
-	
-	private Integer id;
-	private String name;
-	private String department;
-
-	public Integer getId() {
-		return id;
+	public void setObjectId(ObjectId objectId) {
+		this.objectId = objectId;
 	}
 
-	public void setId(Integer id) {
-		this.id = id;
+	public String getFirstName() {
+		return firstName;
 	}
 
-	public String getName() {
-		return name;
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public String getSecondName() {
+		return secondName;
+	}
+
+	public void setSecondName(String secondName) {
+		this.secondName = secondName;
+	}
+
+	public LocalDateTime getDateOfBirth() {
+		return dateOfBirth;
+	}
+
+	public void setDateOfBirth(LocalDateTime dateOfBirth) {
+		this.dateOfBirth = dateOfBirth;
 	}
 
 	public String getDepartment() {
@@ -49,51 +78,53 @@ public class Employee implements Serializable {
 		this.department = department;
 	}
 
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((id == null) ? 0 : id.hashCode());
-		result = prime * result + ((name == null) ? 0 : name.hashCode());
-		return result;
+	public int getSalary() {
+		return salary;
 	}
 
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Employee other = (Employee) obj;
-		if (id == null) {
-			if (other.id != null)
-				return false;
-		} else if (!id.equals(other.id))
-			return false;
-		if (name == null) {
-			if (other.name != null)
-				return false;
-		} else if (!name.equals(other.name))
-			return false;
-		return true;
+	public void setSalary(int salary) {
+		this.salary = salary;
+	}
+
+	public List<Assignment> getAssignments() {
+		return assignments;
+	}
+
+	public void setAssignments(List<Assignment> assignments) {
+		this.assignments = assignments;
+	}
+
+	public List<ContactDetail> getContactDetails() {
+		return contactDetails;
+	}
+
+	public void setContactDetails(List<ContactDetail> contactDetails) {
+		this.contactDetails = contactDetails;
+	}
+
+	public Employee() {
+	}
+
+	public Employee(String firstName, String secondName, LocalDateTime dateOfBirth, List<ContactDetail> contactDetails,
+			String department, int salary, List<Assignment> assignments) {
+		super();
+		this.firstName = firstName;
+		this.secondName = secondName;
+		this.dateOfBirth = dateOfBirth;
+		this.contactDetails = contactDetails;
+		this.department = department;
+		this.salary = salary;
+		this.assignments = assignments;
 	}
 
 	@Override
 	public String toString() {
-		return "Employee [id=" + id + ", name=" + name + ", department=" + department + "]";
-	}
-
-	public Employee updateEmployee(String name2, String department2) {
-		if (null != department2 && !department2.isEmpty() && !"null".equalsIgnoreCase(department2)) {
-			this.department = department2;
-		}
-		if (null != name2 && !name2.isEmpty() && !"null".equalsIgnoreCase(name2)) {
-			this.name = name2;
-		}
-		
-		
-		return this;
+		return "Employee [" + (objectId != null ? "objectId=" + objectId + ", " : "")
+				+ (firstName != null ? "firstName=" + firstName + ", " : "")
+				+ (secondName != null ? "secondName=" + secondName + ", " : "")
+				+ (dateOfBirth != null ? "dateOfBirth=" + dateOfBirth + ", " : "")
+				+ (contactDetails != null ? "contactDetails=" + contactDetails + ", " : "")
+				+ (department != null ? "department=" + department + ", " : "") + "salary=" + salary + ", "
+				+ (assignments != null ? "assignments=" + assignments : "") + "]";
 	}
 }
