@@ -7,6 +7,8 @@ import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.springframework.stereotype.Component;
 
+import com.example.demo.domain.util.LogMethodExecution;
+
 /**
  * This class is responsible to create aop aspect for this rest app. At present
  * we demonstrate annotation based log framework.

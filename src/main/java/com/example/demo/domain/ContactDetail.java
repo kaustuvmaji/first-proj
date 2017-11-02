@@ -12,8 +12,8 @@ public class ContactDetail implements Serializable {
 
 	private List<Address> address;
 	private String emailId;
-	private Integer phoneNumber;
-	private Integer mobileNumber;
+	private Long phoneNumber;
+	private Long mobileNumber;
 
 	public List<Address> getAddress() {
 		return address;
@@ -31,26 +31,26 @@ public class ContactDetail implements Serializable {
 		this.emailId = emailId;
 	}
 
-	public Integer getPhoneNumber() {
+	public Long getPhoneNumber() {
 		return phoneNumber;
 	}
 
-	public void setPhoneNumber(Integer phoneNumber) {
+	public void setPhoneNumber(Long phoneNumber) {
 		this.phoneNumber = phoneNumber;
 	}
 
-	public Integer getMobileNumber() {
+	public Long getMobileNumber() {
 		return mobileNumber;
 	}
 
-	public void setMobileNumber(Integer mobileNumber) {
+	public void setMobileNumber(Long mobileNumber) {
 		this.mobileNumber = mobileNumber;
 	}
 
 	public ContactDetail() {
 	}
 
-	public ContactDetail(List<Address> address, String emailId, Integer phoneNumber, Integer mobileNumber) {
+	public ContactDetail(List<Address> address, String emailId, Long phoneNumber, Long mobileNumber) {
 		super();
 		this.address = address;
 		this.emailId = emailId;

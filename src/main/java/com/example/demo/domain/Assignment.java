@@ -20,8 +20,8 @@ public class Assignment implements Serializable {
 	private Date startDate;
 	private Date endDate;
 	private Long performanceMark;
+	private String employeeId;
 
-	
 	public ObjectId getDocumentId() {
 		return documentId;
 	}
@@ -62,6 +62,14 @@ public class Assignment implements Serializable {
 		this.performanceMark = performanceMark;
 	}
 
+	public String getEmployeeId() {
+		return employeeId;
+	}
+
+	public void setEmployeeId(String employeeId) {
+		this.employeeId = employeeId;
+	}
+
 	public Assignment() {
 	}
 
@@ -81,4 +89,20 @@ public class Assignment implements Serializable {
 				+ (performanceMark != null ? "performanceMark=" + performanceMark : "") + "]";
 	}
 
+	public boolean updateAssignment(Assignment newOne) {
+		boolean flag = false;
+		if (null != newOne.getStartDate()) {
+			this.setStartDate(newOne.getStartDate());
+			flag = true;
+		}
+		if (null != newOne.getEndDate()) {
+			this.setStartDate(newOne.getEndDate());
+			flag = true;
+		}
+		if (null != newOne.getPerformanceMark()) {
+			this.performanceMark = newOne.getPerformanceMark();
+			flag = true;
+		}
+		return flag;
+	}
 }

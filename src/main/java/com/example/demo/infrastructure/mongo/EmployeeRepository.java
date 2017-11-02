@@ -11,7 +11,7 @@ public interface EmployeeRepository extends MongoRepository<Employee, String> {
 
 	Employee findByFirstName(String firstName);
 
-	@Query("{$or :[{firstName:{'$regex' : '^?0$', '$options' : 'i'}},{lastName:{'$regex' : '^?1$', '$options' : 'i'}}]}")
+	@Query("{$or :[{firstName:{'$regex' : '^?0', '$options' : 'i'}},{lastName:{'$regex' : '^?1', '$options' : 'i'}}]}")
 	Employee findByFirstNameOrLastName(String firstName, String lastName);
 
 }

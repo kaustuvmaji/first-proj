@@ -6,7 +6,6 @@ import java.util.List;
 
 import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import com.example.demo.domain.util.LocalDateTimeDeserializer;
@@ -26,7 +25,7 @@ public class Employee implements Serializable {
 	private static final long serialVersionUID = 7098286166079680079L;
 
 	@Id
-	private ObjectId objectId;
+	private ObjectId documentId;
 	private String firstName;
 	private String secondName;
 	@JsonSerialize(using = ToStringSerializer.class)
@@ -35,15 +34,15 @@ public class Employee implements Serializable {
 	private List<ContactDetail> contactDetails;
 	private String department = "development";
 	private int salary;
-	@DBRef
+	// @DBRef(lazy = true)
 	private List<Assignment> assignments;
 
-	public ObjectId getObjectId() {
-		return objectId;
+	public ObjectId getDocumentId() {
+		return documentId;
 	}
 
-	public void setObjectId(ObjectId objectId) {
-		this.objectId = objectId;
+	public void setDocumentId(ObjectId documentId) {
+		this.documentId = documentId;
 	}
 
 	public String getFirstName() {
@@ -119,7 +118,7 @@ public class Employee implements Serializable {
 
 	@Override
 	public String toString() {
-		return "Employee [" + (objectId != null ? "objectId=" + objectId + ", " : "")
+		return "Employee [" + (documentId != null ? "documentId=" + documentId + ", " : "")
 				+ (firstName != null ? "firstName=" + firstName + ", " : "")
 				+ (secondName != null ? "secondName=" + secondName + ", " : "")
 				+ (dateOfBirth != null ? "dateOfBirth=" + dateOfBirth + ", " : "")
