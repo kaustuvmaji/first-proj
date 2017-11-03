@@ -1,7 +1,10 @@
 package com.example.demo.domain;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
+
+import org.springframework.util.CollectionUtils;
 
 public class ContactDetail implements Serializable {
 
@@ -21,6 +24,13 @@ public class ContactDetail implements Serializable {
 
 	public void setAddress(List<Address> address) {
 		this.address = address;
+	}
+
+	public void addAddress(Address address) {
+		if (CollectionUtils.isEmpty(this.address)) {
+			this.address = new ArrayList<>();
+		}
+		this.address.add(address);
 	}
 
 	public String getEmailId() {
@@ -64,6 +74,29 @@ public class ContactDetail implements Serializable {
 				+ (emailId != null ? "emailId=" + emailId + ", " : "")
 				+ (phoneNumber != null ? "phoneNumber=" + phoneNumber + ", " : "")
 				+ (mobileNumber != null ? "mobileNumber=" + mobileNumber : "") + "]";
+	}
+
+	public boolean updateContactDetail(ContactDetail newOne) {
+		boolean flag = false;
+		if (null != newOne.getMobileNumber()) {
+			this.setMobileNumber(newOne.getMobileNumber());
+			flag = true;
+		}
+		if (null != newOne.getPhoneNumber()) {
+			this.setPhoneNumber(newOne.getPhoneNumber());
+			flag = true;
+		}
+		if (null != newOne.getEmailId()) {
+			this.setEmailId(newOne.getEmailId());
+			flag = true;
+		}
+		if (null != newOne.getAddress()) {
+			for (Address address : newOne.address) {
+				this.addAddress(address);
+			}
+			flag = true;
+		}
+		return flag;
 	}
 
 }

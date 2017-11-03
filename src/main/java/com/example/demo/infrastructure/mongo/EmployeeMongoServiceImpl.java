@@ -41,19 +41,29 @@ public class EmployeeMongoServiceImpl implements EmployeeService {
 		Employee updateableEmployee = employeeMongoRepsitory.findByFirstNameOrLastName(employee.getFirstName(),
 				employee.getSecondName());
 		List<Assignment> existingAssignments = updateableEmployee.getAssignments();
-//		for (Assignment newAssign : employee.getAssignments()) {
-//			Iterator<Assignment> iterators = existingAssignments.iterator();
-//			for (Assignment each : existingAssignments) {
-//				if (each.getProjectCode().equalsIgnoreCase(newAssign.getProjectCode())) {
-//					each.updateAssignment(newAssign);
-//				}else {
-//					employee
-//				}
-//			}
-//		}
+		for (Assignment newAssign : employee.getAssignments()) {
+			// Iterator<Assignment> iterators = existingAssignments.iterator();
+			for (Assignment each : existingAssignments) {
+				if (each.getProjectCode().equalsIgnoreCase(newAssign.getProjectCode())) {
+					each.updateAssignment(newAssign);
+				} else {
+					existingAssignments.add(newAssign);
+				}
+			}
+		}
 
-		List<ContactDetail> contactDetails = updateableEmployee.getContactDetails();
-		return null;
+		List<ContactDetail> existingContactDetails = updateableEmployee.getContactDetails();
+
+		for (ContactDetail contactDetail : existingContactDetails) {
+			for (ContactDetail newContact : employee.getContactDetails()) {
+				if (contactDetail.getPhoneNumber().equals(newContact.getPhoneNumber())) {
+					contactDetail.updateContactDetail(newContact);
+				} else {
+					existingContactDetails.add(newContact);
+				}
+			}
+		}
+		return employeeMongoRepsitory.save(updateableEmployee);
 	}
 
 	@Override

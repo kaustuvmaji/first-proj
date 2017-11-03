@@ -25,7 +25,7 @@ public class Employee implements Serializable {
 	private static final long serialVersionUID = 7098286166079680079L;
 
 	@Id
-	private ObjectId documentId;
+	private String documentId;
 	private String firstName;
 	private String secondName;
 	@JsonSerialize(using = ToStringSerializer.class)
@@ -37,11 +37,11 @@ public class Employee implements Serializable {
 	// @DBRef(lazy = true)
 	private List<Assignment> assignments;
 
-	public ObjectId getDocumentId() {
+	public String getDocumentId() {
 		return documentId;
 	}
 
-	public void setDocumentId(ObjectId documentId) {
+	public void setDocumentId(String documentId) {
 		this.documentId = documentId;
 	}
 

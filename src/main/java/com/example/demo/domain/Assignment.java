@@ -3,8 +3,6 @@ package com.example.demo.domain;
 import java.io.Serializable;
 import java.util.Date;
 
-import org.bson.types.ObjectId;
-import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 @Document(collection = "assignments")
@@ -14,21 +12,12 @@ public class Assignment implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = -3610521799783024488L;
-	@Id
-	private ObjectId documentId;
 	private String projectCode;
 	private Date startDate;
 	private Date endDate;
 	private Long performanceMark;
 	private String employeeId;
 
-	public ObjectId getDocumentId() {
-		return documentId;
-	}
-
-	public void setDocumentId(ObjectId documentId) {
-		this.documentId = documentId;
-	}
 
 	public String getProjectCode() {
 		return projectCode;
