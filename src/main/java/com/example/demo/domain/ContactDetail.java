@@ -1,10 +1,6 @@
 package com.example.demo.domain;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
-
-import org.springframework.util.CollectionUtils;
 
 public class ContactDetail implements Serializable {
 
@@ -13,25 +9,10 @@ public class ContactDetail implements Serializable {
 	 */
 	private static final long serialVersionUID = 799818822284620731L;
 
-	private List<Address> address;
+	private Address address;
 	private String emailId;
 	private Long phoneNumber;
 	private Long mobileNumber;
-
-	public List<Address> getAddress() {
-		return address;
-	}
-
-	public void setAddress(List<Address> address) {
-		this.address = address;
-	}
-
-	public void addAddress(Address address) {
-		if (CollectionUtils.isEmpty(this.address)) {
-			this.address = new ArrayList<>();
-		}
-		this.address.add(address);
-	}
 
 	public String getEmailId() {
 		return emailId;
@@ -57,10 +38,18 @@ public class ContactDetail implements Serializable {
 		this.mobileNumber = mobileNumber;
 	}
 
+	public Address getAddress() {
+		return address;
+	}
+
+	public void setAddress(Address address) {
+		this.address = address;
+	}
+
 	public ContactDetail() {
 	}
 
-	public ContactDetail(List<Address> address, String emailId, Long phoneNumber, Long mobileNumber) {
+	public ContactDetail(Address address, String emailId, Long phoneNumber, Long mobileNumber) {
 		super();
 		this.address = address;
 		this.emailId = emailId;
@@ -91,9 +80,7 @@ public class ContactDetail implements Serializable {
 			flag = true;
 		}
 		if (null != newOne.getAddress()) {
-			for (Address address : newOne.address) {
-				this.addAddress(address);
-			}
+				setAddress(address);
 			flag = true;
 		}
 		return flag;

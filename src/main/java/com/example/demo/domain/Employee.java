@@ -4,7 +4,6 @@ import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.List;
 
-import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
@@ -34,8 +33,6 @@ public class Employee implements Serializable {
 	private List<ContactDetail> contactDetails;
 	private String department = "development";
 	private int salary;
-	// @DBRef(lazy = true)
-	private List<Assignment> assignments;
 
 	public String getDocumentId() {
 		return documentId;
@@ -85,14 +82,6 @@ public class Employee implements Serializable {
 		this.salary = salary;
 	}
 
-	public List<Assignment> getAssignments() {
-		return assignments;
-	}
-
-	public void setAssignments(List<Assignment> assignments) {
-		this.assignments = assignments;
-	}
-
 	public List<ContactDetail> getContactDetails() {
 		return contactDetails;
 	}
@@ -105,7 +94,7 @@ public class Employee implements Serializable {
 	}
 
 	public Employee(String firstName, String secondName, LocalDateTime dateOfBirth, List<ContactDetail> contactDetails,
-			String department, int salary, List<Assignment> assignments) {
+			String department, int salary) {
 		super();
 		this.firstName = firstName;
 		this.secondName = secondName;
@@ -113,7 +102,6 @@ public class Employee implements Serializable {
 		this.contactDetails = contactDetails;
 		this.department = department;
 		this.salary = salary;
-		this.assignments = assignments;
 	}
 
 	@Override
@@ -123,7 +111,6 @@ public class Employee implements Serializable {
 				+ (secondName != null ? "secondName=" + secondName + ", " : "")
 				+ (dateOfBirth != null ? "dateOfBirth=" + dateOfBirth + ", " : "")
 				+ (contactDetails != null ? "contactDetails=" + contactDetails + ", " : "")
-				+ (department != null ? "department=" + department + ", " : "") + "salary=" + salary + ", "
-				+ (assignments != null ? "assignments=" + assignments : "") + "]";
+				+ (department != null ? "department=" + department + ", " : "") + "salary=" + salary + "]";
 	}
 }

@@ -7,7 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
-import com.example.demo.application.io.EmployeeIO;
+import com.example.demo.application.io.EmployeeCMD;
+import com.example.demo.application.io.EmployeeData;
 import com.example.demo.domain.Employee;
 import com.example.demo.domain.EmployeeService;
 import com.example.demo.domain.util.LogMethodExecution;
@@ -24,15 +25,15 @@ public class EmployeeApplicatonService {
 	@Autowired
 	private EmployeeService employeeService;
 
-	private void domainToData(Employee emp, EmployeeIO empIO) {
-		empIO.setDocumentId(emp.getDocumentId());
+	private void domainToData(Employee emp, EmployeeData empIO) {
+		empIO.setEmployeeId(emp.getDocumentId());
 		empIO.setFirstName(emp.getFirstName());
 		empIO.setSecondName(emp.getSecondName());
 		empIO.setDepartment(emp.getDepartment());
 		empIO.setSalary(emp.getSalary());
 		empIO.setDateOfBirth(emp.getDateOfBirth());
 		empIO.setContactDetails(emp.getContactDetails());
-		empIO.setAssignments(emp.getAssignments());
+		// empIO.setAssignments(emp.getAssignments());
 	}
 
 	/*
@@ -41,9 +42,9 @@ public class EmployeeApplicatonService {
 	 * @see com.example.demo.EmployeeService#getEmployee(java.lang.Integer)
 	 */
 	@LogMethodExecution
-	public EmployeeIO getEmployee(String firstName, String lastName) {
+	public EmployeeData getEmployee(String firstName, String lastName) {
 		Employee emp = employeeService.getEmployee(firstName, lastName);
-		EmployeeIO empIO = new EmployeeIO();
+		EmployeeData empIO = new EmployeeData();
 		if (null != emp) {
 			domainToData(emp, empIO);
 		}
@@ -56,15 +57,14 @@ public class EmployeeApplicatonService {
 	 * @see com.example.demo.EmployeeService#addEmployees(com.example.demo.Employee)
 	 */
 	@LogMethodExecution
-	public EmployeeIO addEmployee(EmployeeIO empIO) {
-		Employee emp = employeeService
-				.addEmployee(new Employee(empIO.getFirstName(), empIO.getSecondName(), empIO.getDateOfBirth(),
-						empIO.getContactDetails(), empIO.getDepartment(), empIO.getSalary(), empIO.getAssignments()));
-		empIO = new EmployeeIO();
-		if (null != emp) {
-			domainToData(emp, empIO);
+	public EmployeeData addEmployee(EmployeeCMD empIO) {
+		Employee emp = employeeService.addEmployee(new Employee(empIO.getFirstName(), empIO.getSecondName(),
+				empIO.getDateOfBirth(), empIO.getContactDetails(), empIO.getDepartment(), empIO.getSalary()));
+		EmployeeData empData = new EmployeeData();
+		if (null != empData) {
+			domainToData(emp, empData);
 		}
-		return empIO;
+		return empData;
 	}
 
 	/*
@@ -84,8 +84,14 @@ public class EmployeeApplicatonService {
 	 * java.lang.String, java.lang.String)
 	 */
 	@LogMethodExecution
-	public EmployeeIO updateEmployee(EmployeeIO empIO) {
-		return empIO;
+	public EmployeeData updateEmployee(EmployeeCMD empIO) {
+		Employee emp = employeeService.updateEmployee(new Employee(empIO.getFirstName(), empIO.getSecondName(),
+				empIO.getDateOfBirth(), empIO.getContactDetails(), empIO.getDepartment(), empIO.getSalary()));
+		EmployeeData empData = new EmployeeData();
+		if (null != empData) {
+			domainToData(emp, empData);
+		}
+		return empData;
 	}
 
 	/*
@@ -95,11 +101,11 @@ public class EmployeeApplicatonService {
 	 */
 	@Cacheable(value = "employeeCache", sync = true)
 	@LogMethodExecution
-	public Collection<EmployeeIO> getEmployees() {
-		Collection<EmployeeIO> employees = new ArrayList<>();
+	public Collection<EmployeeData> getEmployees() {
+		Collection<EmployeeData> employees = new ArrayList<>();
 		for (Employee each : employeeService.getEmployees()) {
-			employees.add(new EmployeeIO(each.getFirstName(), each.getSecondName(), each.getDateOfBirth(),
-					each.getContactDetails(), each.getDepartment(), each.getSalary(), each.getAssignments()));
+			employees.add(new EmployeeData(each.getDocumentId(), each.getFirstName(), each.getSecondName(),
+					each.getDateOfBirth(), each.getContactDetails(), each.getDepartment(), each.getSalary(), null));
 		}
 		return employees;
 	}
