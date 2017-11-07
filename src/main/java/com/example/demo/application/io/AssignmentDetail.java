@@ -1,23 +1,25 @@
-package com.example.demo.domain;
+package com.example.demo.application.io;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
-import org.springframework.data.mongodb.core.mapping.Document;
+import com.example.demo.domain.util.LocalDateTimeDeserializer;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
 
-@Document(collection = "assignments")
-public class Assignment implements Serializable {
+public class AssignmentDetail implements Serializable {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = -3610521799783024488L;
 	private String projectCode;
-//	@JsonSerialize(using = ToStringSerializer.class)
-//	@JsonDeserialize(using = LocalDateTimeDeserializer.class)
+	@JsonSerialize(using = ToStringSerializer.class)
+	@JsonDeserialize(using = LocalDateTimeDeserializer.class)
 	private LocalDateTime startDate;
-//	@JsonSerialize(using = ToStringSerializer.class)
-//	@JsonDeserialize(using = LocalDateTimeDeserializer.class)
+	@JsonSerialize(using = ToStringSerializer.class)
+	@JsonDeserialize(using = LocalDateTimeDeserializer.class)
 	private LocalDateTime endDate;
 	private Long performanceMark;
 	private String employeeId;
@@ -62,16 +64,17 @@ public class Assignment implements Serializable {
 		this.employeeId = employeeId;
 	}
 
-	public Assignment() {
+	public AssignmentDetail() {
 	}
 
-	public Assignment(String projectCode, LocalDateTime startDate, LocalDateTime endDate, Long performanceMark, String employeeId) {
+	public AssignmentDetail(String projectCode, LocalDateTime startDate, LocalDateTime endDate, Long performanceMark,
+			String empployeeId) {
 		super();
 		this.projectCode = projectCode;
 		this.startDate = startDate;
 		this.endDate = endDate;
 		this.performanceMark = performanceMark;
-		this.employeeId = employeeId;
+		this.employeeId = empployeeId;
 	}
 
 	@Override
@@ -82,7 +85,7 @@ public class Assignment implements Serializable {
 				+ (performanceMark != null ? "performanceMark=" + performanceMark : "") + "]";
 	}
 
-	public boolean updateAssignment(Assignment newOne) {
+	public boolean updateAssignment(AssignmentDetail newOne) {
 		boolean flag = false;
 		if (null != newOne.getStartDate()) {
 			this.setStartDate(newOne.getStartDate());

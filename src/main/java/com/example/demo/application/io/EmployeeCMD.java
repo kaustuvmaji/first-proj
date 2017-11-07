@@ -11,7 +11,6 @@ import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
 
 public class EmployeeCMD {
 
-//	private String employeeId;
 	private String firstName;
 	private String secondName;
 	@JsonSerialize(using = ToStringSerializer.class)
@@ -20,12 +19,6 @@ public class EmployeeCMD {
 	private List<ContactDetail> contactDetails;
 	private String department = "development";
 	private int salary;
-//	public String getEmployeeId() {
-//		return employeeId;
-//	}
-//	public void setEmployeeId(String employeeId) {
-//		this.employeeId = employeeId;
-//	}
 	public String getFirstName() {
 		return firstName;
 	}

@@ -7,11 +7,6 @@ import java.util.List;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-import com.example.demo.domain.util.LocalDateTimeDeserializer;
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
-
 /**
  * Employee domain class
  * 
@@ -27,8 +22,8 @@ public class Employee implements Serializable {
 	private String documentId;
 	private String firstName;
 	private String secondName;
-	@JsonSerialize(using = ToStringSerializer.class)
-	@JsonDeserialize(using = LocalDateTimeDeserializer.class)
+	// @JsonSerialize(using = ToStringSerializer.class)
+	// @JsonDeserialize(using = LocalDateTimeDeserializer.class)
 	private LocalDateTime dateOfBirth;
 	private List<ContactDetail> contactDetails;
 	private String department = "development";
