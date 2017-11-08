@@ -1,6 +1,0 @@
-Dear ${firstName} ${lastName},
- 
-We are glad to see you in our team ${department} location.
-
-Regards, 
-${sender}
