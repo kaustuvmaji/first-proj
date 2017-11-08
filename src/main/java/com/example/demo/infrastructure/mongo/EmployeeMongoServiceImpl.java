@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import com.example.demo.domain.ContactDetail;
@@ -17,8 +18,7 @@ public class EmployeeMongoServiceImpl implements EmployeeService {
 	EmployeeRepository employeeMongoRepsitory;
 
 	@Override
-	// @Cacheable(value = "employeeCache", key = "#{employee.objectId}", sync =
-	// true)
+	@Cacheable(value = "employeeCache", key = "employee.documentId", sync = true)
 	public Employee getEmployee(String firstName, String lastName) {
 		return employeeMongoRepsitory.findByFirstNameOrLastName(firstName, lastName);
 	}

@@ -71,7 +71,7 @@ public class EmployeeApplicatonService {
 		if (null != empData) {
 			domainToData(emp, empData);
 		}
-		if (CollectionUtils.isEmpty(emp.getContactDetails())) {
+		if (!CollectionUtils.isEmpty(emp.getContactDetails())) {
 			EmailMessage email = new EmailMessage("Welcome a board !!!", "employeeregistration.vm",
 					emp.getContactDetails().get(0).getEmailId());
 			Map<String, String> propertyHolder = new HashMap<>();
