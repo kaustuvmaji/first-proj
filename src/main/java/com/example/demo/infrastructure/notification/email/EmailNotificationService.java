@@ -25,20 +25,22 @@ public class EmailNotificationService {
 
 	@LogMethodExecution
 	public void sendSimpleMail(Employee employee) {
-		if(CollectionUtils.isEmpty(employee.getContactDetails())) {
+		if (CollectionUtils.isEmpty(employee.getContactDetails())) {
 			return;
 		}
 		SimpleMailMessage mailMessage = new SimpleMailMessage();
 		mailMessage.setTo(employee.getContactDetails().get(0).getEmailId());
 		mailMessage.setSubject("Welcome to Spring boot mongo example application");
-		// mailMessage.setFrom("admin@admin.com");
-		Template template = velocityEngine.getTemplate("./template/employeeregistration.template");
+		mailMessage.setFrom("kaustuv.maji.job@gmail.com");
+		Template template = velocityEngine.getTemplate("employeeregistration.vm");
 		VelocityContext velocityContext = new VelocityContext();
 		velocityContext.put("firstName", employee.getFirstName());
 		velocityContext.put("lastName", employee.getSecondName());
 		velocityContext.put("department", employee.getDepartment());
+		velocityContext.put("sender", "Admin HR");
 		StringWriter stringWriter = new StringWriter();
 		template.merge(velocityContext, stringWriter);
+		System.out.println("@@@@@@@@@@@@@@@@->" + stringWriter.toString());
 		mailMessage.setText(stringWriter.toString());
 		javaMailSender.send(mailMessage);
 	}
