@@ -79,6 +79,7 @@ public class EmployeeApplicatonService {
 			propertyHolder.put("lastName", emp.getSecondName());
 			propertyHolder.put("department", emp.getDepartment());
 			propertyHolder.put("sender", "Admin HR");
+			propertyHolder.put("employeeId", emp.getDocumentId());
 			email.setPropertyHolder(propertyHolder);
 			emailNotificationService.sendSimpleMail(email);
 		}
