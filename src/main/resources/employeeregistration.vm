@@ -1,6 +1,6 @@
-Dear ${firstName} ${lastName},
+Dear ${firstName},
  
-We are glad to see you in our team ${department} location.
+We are glad to see you in our team ${department} department. Your EmployeeId is ${employeeId}. We wish you all the best.
 
 Regards, 
 ${sender}

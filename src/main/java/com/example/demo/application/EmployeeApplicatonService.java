@@ -2,16 +2,20 @@ package com.example.demo.application;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashMap;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
 
 import com.example.demo.application.io.EmployeeCMD;
 import com.example.demo.application.io.EmployeeData;
 import com.example.demo.domain.Employee;
 import com.example.demo.domain.EmployeeService;
 import com.example.demo.domain.util.LogMethodExecution;
+import com.example.demo.infrastructure.notification.email.EmailMessage;
 import com.example.demo.infrastructure.notification.email.EmailNotificationService;
 
 /**
@@ -67,7 +71,18 @@ public class EmployeeApplicatonService {
 		if (null != empData) {
 			domainToData(emp, empData);
 		}
-		emailNotificationService.sendSimpleMail(emp);
+		if (CollectionUtils.isEmpty(emp.getContactDetails())) {
+			EmailMessage email = new EmailMessage("Welcome a board !!!", "employeeregistration.vm",
+					emp.getContactDetails().get(0).getEmailId());
+			Map<String, String> propertyHolder = new HashMap<>();
+			propertyHolder.put("firstName", emp.getFirstName());
+			propertyHolder.put("lastName", emp.getSecondName());
+			propertyHolder.put("department", emp.getDepartment());
+			propertyHolder.put("sender", "Admin HR");
+			email.setPropertyHolder(propertyHolder);
+			emailNotificationService.sendSimpleMail(email);
+		}
+
 		return empData;
 	}
 
