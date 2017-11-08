@@ -76,7 +76,7 @@ public class EmployeeApplicatonService {
 		}
 		// email notification to employeee mail id
 		if (!CollectionUtils.isEmpty(emp.getContactDetails())) {
-			EmailMessage email = new EmailMessage("Welcome a board !!!", "employeeregistration.vm",
+			EmailMessage email = new EmailMessage("Welcome on board  !!!", "employeeregistration.vm",
 					emp.getContactDetails().get(0).getEmailId());
 			Map<String, String> propertyHolder = new HashMap<>();
 			propertyHolder.put("firstName", emp.getFirstName());

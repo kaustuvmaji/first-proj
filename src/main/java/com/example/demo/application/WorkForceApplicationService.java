@@ -67,7 +67,7 @@ public class WorkForceApplicationService {
 		if (null != assignment) {
 			Employee empoyeeData = employeeService.getEmployee(null, null, assignmentData.getEmployeeId());
 			if (!CollectionUtils.isEmpty(empoyeeData.getContactDetails())) {
-				EmailMessage email = new EmailMessage("Welcome a board !!!", "workforceassignment.vm",
+				EmailMessage email = new EmailMessage("Welcome on board  !!!", "workforceassignment.vm",
 						empoyeeData.getContactDetails().get(0).getEmailId());
 				Map<String, String> propertyHolder = new HashMap<>();
 				propertyHolder.put("firstName", empoyeeData.getFirstName());
