@@ -12,6 +12,7 @@ import com.example.demo.application.io.EmployeeData;
 import com.example.demo.domain.Employee;
 import com.example.demo.domain.EmployeeService;
 import com.example.demo.domain.util.LogMethodExecution;
+import com.example.demo.infrastructure.notification.email.EmailNotificationService;
 
 /**
  * This class is hold the actual implementation that domain services provided to
@@ -24,6 +25,8 @@ public class EmployeeApplicatonService {
 
 	@Autowired
 	private EmployeeService employeeService;
+	@Autowired
+	private EmailNotificationService emailNotificationService;
 
 	private void domainToData(Employee emp, EmployeeData empIO) {
 		empIO.setEmployeeId(emp.getDocumentId());
@@ -64,6 +67,7 @@ public class EmployeeApplicatonService {
 		if (null != empData) {
 			domainToData(emp, empData);
 		}
+		emailNotificationService.sendSimpleMail(emp);
 		return empData;
 	}
 

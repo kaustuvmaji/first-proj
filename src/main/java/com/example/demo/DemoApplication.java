@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @ComponentScan(basePackages = { "com.example.demo.domain.core", "com.example.demo.app.configuration",
 		"com.example.demo.application", "com.example.demo.application.aop", "com.example.demo.restinterface",
 		"com.example.demo.scheduler", "com.example.demo.security", "com.example.demo.app.management",
-		"com.example.demo.infrastructure.mongo" })
+		"com.example.demo.infrastructure.mongo", "com.example.demo.infrastructure.notification.email" })
 @EnableAutoConfiguration
 public class DemoApplication {
 
