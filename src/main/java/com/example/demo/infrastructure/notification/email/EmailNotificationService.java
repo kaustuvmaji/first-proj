@@ -2,6 +2,7 @@ package com.example.demo.infrastructure.notification.email;
 
 import java.io.StringWriter;
 
+import org.apache.log4j.Logger;
 import org.apache.velocity.Template;
 import org.apache.velocity.VelocityContext;
 import org.apache.velocity.app.VelocityEngine;
@@ -17,6 +18,8 @@ import com.example.demo.domain.Employee;
 @Component
 public class EmailNotificationService {
 
+	private static final Logger LOG = Logger.getLogger(EmailNotificationService.class);
+
 	@Autowired
 	private JavaMailSender javaMailSender;
 
@@ -30,17 +33,17 @@ public class EmailNotificationService {
 		}
 		SimpleMailMessage mailMessage = new SimpleMailMessage();
 		mailMessage.setTo(employee.getContactDetails().get(0).getEmailId());
-		mailMessage.setSubject("Welcome to Spring boot mongo example application");
+		mailMessage.setSubject("Welcome a board");
 		mailMessage.setFrom("kaustuv.maji.job@gmail.com");
 		Template template = velocityEngine.getTemplate("employeeregistration.vm");
-		VelocityContext velocityContext = new VelocityContext();
-		velocityContext.put("firstName", employee.getFirstName());
-		velocityContext.put("lastName", employee.getSecondName());
-		velocityContext.put("department", employee.getDepartment());
-		velocityContext.put("sender", "Admin HR");
+		VelocityContext vlc = new VelocityContext();
+		vlc.put("firstName", employee.getFirstName());
+		vlc.put("lastName", employee.getSecondName());
+		vlc.put("department", employee.getDepartment());
+		vlc.put("sender", "Admin HR");
 		StringWriter stringWriter = new StringWriter();
-		template.merge(velocityContext, stringWriter);
-		System.out.println("@@@@@@@@@@@@@@@@->" + stringWriter.toString());
+		template.merge(vlc, stringWriter);
+		LOG.debug(stringWriter.toString());
 		mailMessage.setText(stringWriter.toString());
 		javaMailSender.send(mailMessage);
 	}
