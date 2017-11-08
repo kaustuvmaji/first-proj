@@ -28,19 +28,23 @@ public class EmailNotificationService {
 
 	@LogMethodExecution
 	public void sendSimpleMail(EmailMessage email) {
-		SimpleMailMessage mailMessage = new SimpleMailMessage();
-		mailMessage.setTo(email.getTarget());
-		mailMessage.setSubject(email.getSubject());
-		Template template = velocityEngine.getTemplate(email.getEmailTemplate());
-		VelocityContext vlc = new VelocityContext();
-		Map<String, String> properties = email.getPropertyHolder();
-		for (Entry<String, String> property : properties.entrySet()) {
-			vlc.put(property.getKey(), property.getValue());
+		try {
+			SimpleMailMessage mailMessage = new SimpleMailMessage();
+			mailMessage.setTo(email.getTarget());
+			mailMessage.setSubject(email.getSubject());
+			Template template = velocityEngine.getTemplate(email.getEmailTemplate());
+			VelocityContext vlc = new VelocityContext();
+			Map<String, String> properties = email.getPropertyHolder();
+			for (Entry<String, String> property : properties.entrySet()) {
+				vlc.put(property.getKey(), property.getValue());
+			}
+			StringWriter stringWriter = new StringWriter();
+			template.merge(vlc, stringWriter);
+			LOG.debug(stringWriter.toString());
+			mailMessage.setText(stringWriter.toString());
+			javaMailSender.send(mailMessage);
+		} catch (Exception ex) {
+			LOG.error("unable to send notification", ex);
 		}
-		StringWriter stringWriter = new StringWriter();
-		template.merge(vlc, stringWriter);
-		LOG.debug(stringWriter.toString());
-		mailMessage.setText(stringWriter.toString());
-		javaMailSender.send(mailMessage);
 	}
 }

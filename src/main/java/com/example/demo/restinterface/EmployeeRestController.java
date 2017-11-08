@@ -55,7 +55,7 @@ public class EmployeeRestController {
 			@Authorization(value = "security scope bounded to 'ROLE_ADMIN' users ") })
 	EmployeeData getEmployee(@RequestParam(value = "firstName", required = false) String firstName,
 			@RequestParam(value = "lastName", required = false) String lastName) {
-		return employeeService.getEmployee(firstName, lastName);
+		return employeeService.getEmployee(firstName, lastName, null);
 	}
 
 	@RequestMapping(value = "/addEmployee", method = {

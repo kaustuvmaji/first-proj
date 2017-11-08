@@ -10,7 +10,7 @@ import java.util.List;
  */
 public interface EmployeeService {
 
-	Employee getEmployee(String firstName, String lastName);
+	Employee getEmployee(String firstName, String lastName, String employeeId);
 
 	Employee addEmployee(Employee employee);
 

@@ -31,6 +31,8 @@ public class EmployeeApplicatonService {
 	private EmployeeService employeeService;
 	@Autowired
 	private EmailNotificationService emailNotificationService;
+	@Autowired
+	private WorkForceApplicationService wfa;
 
 	private void domainToData(Employee emp, EmployeeData empIO) {
 		empIO.setEmployeeId(emp.getDocumentId());
@@ -40,7 +42,8 @@ public class EmployeeApplicatonService {
 		empIO.setSalary(emp.getSalary());
 		empIO.setDateOfBirth(emp.getDateOfBirth());
 		empIO.setContactDetails(emp.getContactDetails());
-		// empIO.setAssignments(emp.getAssignments());
+		empIO.setAssignments(wfa.getAllAssingment(emp.getFirstName(), emp.getSecondName()));
+
 	}
 
 	/*
@@ -49,8 +52,8 @@ public class EmployeeApplicatonService {
 	 * @see com.example.demo.EmployeeService#getEmployee(java.lang.Integer)
 	 */
 	@LogMethodExecution
-	public EmployeeData getEmployee(String firstName, String lastName) {
-		Employee emp = employeeService.getEmployee(firstName, lastName);
+	public EmployeeData getEmployee(String firstName, String lastName,String employeeId) {
+		Employee emp = employeeService.getEmployee(firstName, lastName,employeeId);
 		EmployeeData empIO = new EmployeeData();
 		if (null != emp) {
 			domainToData(emp, empIO);
@@ -71,6 +74,7 @@ public class EmployeeApplicatonService {
 		if (null != empData) {
 			domainToData(emp, empData);
 		}
+		// email notification to employeee mail id
 		if (!CollectionUtils.isEmpty(emp.getContactDetails())) {
 			EmailMessage email = new EmailMessage("Welcome a board !!!", "employeeregistration.vm",
 					emp.getContactDetails().get(0).getEmailId());
@@ -125,7 +129,8 @@ public class EmployeeApplicatonService {
 		Collection<EmployeeData> employees = new ArrayList<>();
 		for (Employee each : employeeService.getEmployees()) {
 			employees.add(new EmployeeData(each.getDocumentId(), each.getFirstName(), each.getSecondName(),
-					each.getDateOfBirth(), each.getContactDetails(), each.getDepartment(), each.getSalary(), null));
+					each.getDateOfBirth(), each.getContactDetails(), each.getDepartment(), each.getSalary(),
+					wfa.getAllAssingment(each.getFirstName(), each.getSecondName())));
 		}
 		return employees;
 	}

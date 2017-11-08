@@ -7,7 +7,6 @@ import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.List;
 
-import com.example.demo.domain.Assignment;
 import com.example.demo.domain.ContactDetail;
 import com.example.demo.domain.util.LocalDateTimeDeserializer;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
@@ -30,7 +29,7 @@ public class EmployeeData implements Serializable {
 	}
 
 	public EmployeeData(String employeeId, String firstName, String secondName, LocalDateTime dateOfBirth,
-			List<ContactDetail> contactDetails, String department, int salary, List<Assignment> assignments) {
+			List<ContactDetail> contactDetails, String department, int salary, List<AssignmentDetail> assignments) {
 		super();
 		this.employeeId = employeeId;
 		this.firstName = firstName;
@@ -52,7 +51,7 @@ public class EmployeeData implements Serializable {
 	private String department = "development";
 	private int salary;
 	// @DBRef(lazy = true)
-	private List<Assignment> assignments;
+	private List<AssignmentDetail> assignments;
 
 	public String getEmployeeId() {
 		return employeeId;
@@ -110,11 +109,11 @@ public class EmployeeData implements Serializable {
 		this.salary = salary;
 	}
 
-	public List<Assignment> getAssignments() {
+	public List<AssignmentDetail> getAssignments() {
 		return assignments;
 	}
 
-	public void setAssignments(List<Assignment> assignments) {
+	public void setAssignments(List<AssignmentDetail> assignments) {
 		this.assignments = assignments;
 	}
 

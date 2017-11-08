@@ -32,12 +32,13 @@ public class WorkForceManagementController {
 	@PreAuthorize("hasAuthority('ROLE_ADMIN')")
 	@ApiOperation(value = "Assignment detail by employee id", notes = "Assignment detail", response = EmployeeData.class, authorizations = {
 			@Authorization(value = "security scope bounded to 'ROLE_ADMIN' users ") })
-	List<AssignmentDetail> getEmployee(@RequestParam(value = "firstName") String firstName,
-			@RequestParam("lastName") String lastName) {
+	List<AssignmentDetail> getEmployee(@RequestParam(value = "firstName", required = false) String firstName,
+			@RequestParam(value = "lastName", required = false) String lastName) {
 		return workForceApplicationService.getAllAssingment(firstName, lastName);
 	}
-	
-	@RequestMapping(value = "/assignmentDetail", method = { org.springframework.web.bind.annotation.RequestMethod.POST })
+
+	@RequestMapping(value = "/assignmentDetail", method = {
+			org.springframework.web.bind.annotation.RequestMethod.POST })
 	@ResponseBody
 	@PreAuthorize("hasAuthority('ROLE_ADMIN')")
 	@ApiOperation(value = "Assignment detail by employee id", notes = "Assignment detail", response = EmployeeData.class, authorizations = {

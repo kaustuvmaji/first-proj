@@ -1,0 +1,6 @@
+Dear ${firstName},
+ 
+You are allocated to project ${projectCode} from ${startDate}. We wish you all the best.
+
+Regards, 
+${sender}
