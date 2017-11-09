@@ -85,6 +85,9 @@ public class AppUser implements Serializable {
 		for (String eachRole : roles)
 			role.add(eachRole);
 	}
+	
+	public AppUser() {
+	}
 
 	@Override
 	public String toString() {
