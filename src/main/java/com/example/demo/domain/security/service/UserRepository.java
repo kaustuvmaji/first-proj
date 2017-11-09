@@ -9,4 +9,5 @@ import com.example.demo.domain.security.AppUser;
 public interface UserRepository extends MongoRepository<AppUser, String> {
 
 	AppUser findByUserName(String userName);
+	
 }

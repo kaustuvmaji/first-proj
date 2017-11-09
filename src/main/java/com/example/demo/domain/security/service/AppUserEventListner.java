@@ -18,8 +18,8 @@ public class AppUserEventListner implements ApplicationListener<AppUserEvent> {
 
 	@Override
 	public void onApplicationEvent(AppUserEvent event) {
-		logger.info("Register users");
+		logger.debug("Register users");
 		AppUser user = userRepository.save(event.getAppUser());
-		logger.info("new user " + user + "registered successfully");
+		logger.debug("new user " + user + "registered successfully");
 	}
 }

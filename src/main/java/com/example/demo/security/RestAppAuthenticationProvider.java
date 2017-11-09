@@ -8,6 +8,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -16,6 +17,8 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Component;
+
+import com.example.demo.domain.security.service.UserRepository;
 
 /**
  * This class provides the username password authentication implementation.
@@ -30,6 +33,9 @@ public class RestAppAuthenticationProvider implements AuthenticationProvider {
 	private static final Logger LOG = Logger.getLogger(RestAppAuthenticationProvider.class);
 
 	Map<String, AppUser> users = new HashMap<>();
+	
+	@Autowired
+	UserRepository userRepository;
 
 	/**
 	 * 
@@ -64,7 +70,7 @@ public class RestAppAuthenticationProvider implements AuthenticationProvider {
 
 		String user = authentication.getName().trim();
 		String password = authentication.getCredentials().toString().trim();
-		AppUser appuser = users.get(user);
+		com.example.demo.domain.security.AppUser appuser = userRepository.findByUserName(user);
 		if (LOG.isDebugEnabled()) {
 			LOG.debug("Security user detail { " + appuser + " }");
 		}
