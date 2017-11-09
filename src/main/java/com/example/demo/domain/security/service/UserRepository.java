@@ -9,7 +9,7 @@ import com.example.demo.domain.security.AppUser;
 @Repository
 public interface UserRepository extends MongoRepository<AppUser, String> {
 
-	@Cacheable(value = "userCache", key = "userName", sync = true)
+	@Cacheable(value = "userCache", key = "#userName", sync = true)
 	AppUser findByUserName(String userName);
 
 }
