@@ -18,8 +18,7 @@ import com.example.demo.domain.Assignment;
 import com.example.demo.domain.Employee;
 import com.example.demo.domain.EmployeeService;
 import com.example.demo.domain.WorkforceManagementService;
-import com.example.demo.infrastructure.notification.email.EmailMessage;
-import com.example.demo.infrastructure.notification.email.EmailNotificationService;
+import com.example.demo.domain.event.EmailMessage;
 
 /**
  * @author kama0717
@@ -35,7 +34,8 @@ public class WorkForceApplicationService {
 	EmployeeService employeeService;
 
 	@Autowired
-	private EmailNotificationService emailNotificationService;
+	NotificationEventPublisher nep;
+
 
 	@LogMethodExecution
 	public List<AssignmentDetail> getAllAssingment(String firstName, String lastName) {
@@ -75,7 +75,7 @@ public class WorkForceApplicationService {
 				propertyHolder.put("startDate", assignmentData.getStartDate().toString());
 				propertyHolder.put("sender", "Admin Work Force Manager");
 				email.setPropertyHolder(propertyHolder);
-				emailNotificationService.sendSimpleMail(email);
+				nep.publish(email);
 			}
 		}
 

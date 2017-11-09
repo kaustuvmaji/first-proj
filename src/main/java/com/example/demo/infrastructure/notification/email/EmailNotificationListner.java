@@ -9,16 +9,19 @@ import org.apache.velocity.Template;
 import org.apache.velocity.VelocityContext;
 import org.apache.velocity.app.VelocityEngine;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationListener;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Component;
 
 import com.example.demo.application.aop.LogMethodExecution;
+import com.example.demo.domain.event.EmailMessage;
+import com.example.demo.domain.event.NotificationEvent;
 
 @Component
-public class EmailNotificationService {
+public class EmailNotificationListner implements ApplicationListener<NotificationEvent> {
 
-	private static final Logger LOG = Logger.getLogger(EmailNotificationService.class);
+	private static final Logger LOG = Logger.getLogger(EmailNotificationListner.class);
 
 	@Autowired
 	private JavaMailSender javaMailSender;
@@ -46,5 +49,10 @@ public class EmailNotificationService {
 		} catch (Exception ex) {
 			LOG.error("unable to send notification", ex);
 		}
+	}
+
+	@Override
+	public void onApplicationEvent(NotificationEvent event) {
+		sendSimpleMail(event.getEmailMessage());
 	}
 }

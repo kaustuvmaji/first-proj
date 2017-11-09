@@ -1,4 +1,4 @@
-package com.example.demo.infrastructure.notification.email;
+package com.example.demo.domain.event;
 
 import java.util.Map;
 

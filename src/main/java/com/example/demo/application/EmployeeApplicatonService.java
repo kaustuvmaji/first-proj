@@ -14,9 +14,8 @@ import com.example.demo.application.io.EmployeeCMD;
 import com.example.demo.application.io.EmployeeData;
 import com.example.demo.domain.Employee;
 import com.example.demo.domain.EmployeeService;
+import com.example.demo.domain.event.EmailMessage;
 import com.example.demo.domain.util.LogMethodExecution;
-import com.example.demo.infrastructure.notification.email.EmailMessage;
-import com.example.demo.infrastructure.notification.email.EmailNotificationService;
 
 /**
  * This class is hold the actual implementation that domain services provided to
@@ -29,10 +28,13 @@ public class EmployeeApplicatonService {
 
 	@Autowired
 	private EmployeeService employeeService;
-	@Autowired
-	private EmailNotificationService emailNotificationService;
+	// @Autowired
+	// private EmailNotificationService emailNotificationService;
 	@Autowired
 	private WorkForceApplicationService wfa;
+
+	@Autowired
+	NotificationEventPublisher nep;
 
 	private void domainToData(Employee emp, EmployeeData empIO) {
 		empIO.setEmployeeId(emp.getDocumentId());
@@ -52,8 +54,8 @@ public class EmployeeApplicatonService {
 	 * @see com.example.demo.EmployeeService#getEmployee(java.lang.Integer)
 	 */
 	@LogMethodExecution
-	public EmployeeData getEmployee(String firstName, String lastName,String employeeId) {
-		Employee emp = employeeService.getEmployee(firstName, lastName,employeeId);
+	public EmployeeData getEmployee(String firstName, String lastName, String employeeId) {
+		Employee emp = employeeService.getEmployee(firstName, lastName, employeeId);
 		EmployeeData empIO = new EmployeeData();
 		if (null != emp) {
 			domainToData(emp, empIO);
@@ -85,7 +87,8 @@ public class EmployeeApplicatonService {
 			propertyHolder.put("sender", "Admin HR");
 			propertyHolder.put("employeeId", emp.getDocumentId());
 			email.setPropertyHolder(propertyHolder);
-			emailNotificationService.sendSimpleMail(email);
+
+			nep.publish(email);
 		}
 
 		return empData;
