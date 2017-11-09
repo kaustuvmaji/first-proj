@@ -13,6 +13,9 @@ public class AppUser{
 	private String userName;
 	private String password;
 	private List<String> role;
+	
+	public static final String ROLE_ADMIN = "ROLE_ADMIN";
+	public static final String ROLE_USER = "ROLE_USER";
 
 	public String[] getRole() {
 		if (null == role || role.isEmpty()) {

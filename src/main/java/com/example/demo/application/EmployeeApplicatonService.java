@@ -15,6 +15,7 @@ import com.example.demo.application.io.EmployeeData;
 import com.example.demo.domain.Employee;
 import com.example.demo.domain.EmployeeService;
 import com.example.demo.domain.event.EmailMessage;
+import com.example.demo.domain.security.AppUser;
 import com.example.demo.domain.util.LogMethodExecution;
 
 /**
@@ -35,6 +36,9 @@ public class EmployeeApplicatonService {
 
 	@Autowired
 	NotificationEventPublisher nep;
+
+	@Autowired
+	AppUserEventPublisher aep;
 
 	private void domainToData(Employee emp, EmployeeData empIO) {
 		empIO.setEmployeeId(emp.getDocumentId());
@@ -76,6 +80,11 @@ public class EmployeeApplicatonService {
 		if (null != empData) {
 			domainToData(emp, empData);
 		}
+
+		// Application user creation event.
+		AppUser appUser = new AppUser(emp.getDocumentId(), null, AppUser.ROLE_USER);
+		aep.publish(appUser);
+
 		// email notification to employeee mail id
 		if (!CollectionUtils.isEmpty(emp.getContactDetails())) {
 			EmailMessage email = new EmailMessage("Welcome on board  !!!", "employeeregistration.vm",
@@ -86,6 +95,7 @@ public class EmployeeApplicatonService {
 			propertyHolder.put("department", emp.getDepartment());
 			propertyHolder.put("sender", "Admin HR");
 			propertyHolder.put("employeeId", emp.getDocumentId());
+			propertyHolder.put("password", appUser.getPassword());
 			email.setPropertyHolder(propertyHolder);
 
 			nep.publish(email);

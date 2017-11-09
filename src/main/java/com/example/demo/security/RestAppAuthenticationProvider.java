@@ -31,16 +31,13 @@ public class RestAppAuthenticationProvider implements AuthenticationProvider {
 
 	Map<String, AppUser> users = new HashMap<>();
 
-	private static final String ROLE_ADMIN = "ROLE_ADMIN";
-	private static final String ROLE_USER = "ROLE_USER";
-
 	/**
 	 * 
 	 */
 	public RestAppAuthenticationProvider() {
-		users.put("kaustuv", new AppUser("kaustuv", "pass@123", ROLE_ADMIN, ROLE_USER));
-		users.put("user", new AppUser("user", "user@123", ROLE_USER));
-		users.put("admin", new AppUser("admin", "admin@123", ROLE_ADMIN));
+		users.put("kaustuv", new AppUser("kaustuv", "pass@123", AppUser.ROLE_ADMIN, AppUser.ROLE_USER));
+		users.put("user", new AppUser("user", "user@123", AppUser.ROLE_USER));
+		users.put("admin", new AppUser("admin", "admin@123", AppUser.ROLE_ADMIN));
 	}
 
 	/*

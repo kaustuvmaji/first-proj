@@ -1,6 +1,9 @@
 Dear ${firstName},
  
-We are glad to see you in our team ${department} department. Your EmployeeId is ${employeeId}. We wish you all the best.
+We are glad to see you in our team ${department} department. Your EmployeeId is ${employeeId}. 
+Login credential Username ${employeeId} and Password ${password}. Application url https://kspringmongo.herokuapp.com/ 
+We wish you all the best.
 
+Have a nice day!!!
 Regards, 
 ${sender}

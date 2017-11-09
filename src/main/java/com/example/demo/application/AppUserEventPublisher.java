@@ -4,18 +4,18 @@ import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.context.ApplicationEventPublisherAware;
 import org.springframework.stereotype.Component;
 
-import com.example.demo.domain.event.EmailMessage;
-import com.example.demo.domain.event.NotificationEvent;
+import com.example.demo.domain.event.AppUserEvent;
+import com.example.demo.domain.security.AppUser;
 
 @Component
-public class NotificationEventPublisher implements ApplicationEventPublisherAware {
+public class AppUserEventPublisher implements ApplicationEventPublisherAware {
 
 	ApplicationEventPublisher aep;
 
-	public void publish(final EmailMessage message) {
-		System.out.println("Publishing emailNotification event. ");
-		NotificationEvent customSpringEvent = new NotificationEvent(this, message);
-		aep.publishEvent(customSpringEvent);
+	public void publish(final AppUser applicationUser) {
+		System.out.println("Publishing new application user creation event. ");
+		AppUserEvent appUserEvent = new AppUserEvent(this, applicationUser);
+		aep.publishEvent(appUserEvent);
 	}
 
 	@Override
