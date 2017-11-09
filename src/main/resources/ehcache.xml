@@ -22,6 +22,21 @@
 		<persistence strategy="localTempSwap" />
 	</cache>
 	
+	<cache name="userCache" 
+			maxEntriesLocalHeap="10000"
+			maxEntriesLocalDisk="1000" 
+			eternal="false" 
+			diskSpoolBufferSizeMB="20"
+			timeToIdleSeconds="300" 
+			timeToLiveSeconds="600"
+			memoryStoreEvictionPolicy="LFU" 
+			transactionalMode="off" 
+			clearOnFlush="true"
+			statistics="true" 
+			logging="true">
+		<persistence strategy="localTempSwap" />
+	</cache>
+	
 	
 
 </ehcache>  
