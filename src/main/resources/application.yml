@@ -1,0 +1,50 @@
+# Spring Boot configuration
+spring:
+  profiles:
+    active: google
+# Spring Security configuration
+security:
+  oauth2:
+    client:
+      clientId: 273117069151-lpehpmpa81mis16j1935seidg74nj3av.apps.googleusercontent.com
+      clientSecret: GfWZe6TgzlX3ETgyQB9rDgUD
+      accessTokenUri: https://www.googleapis.com/oauth2/v4/token
+      userAuthorizationUri: https://accounts.google.com/o/oauth2/v2/auth
+      clientAuthenticationScheme: form
+      scope:
+        - openid
+        - email
+        - profile
+    resource:
+      userInfoUri: https://www.googleapis.com/oauth2/v3/userinfo
+      preferTokenInfo: true
+# Server configuration
+server:
+ port: 8181
+
+# spring actuators [Application health management] configuration
+info:
+  app:
+    name: Spring Boot Rest App Example
+    description: This is a spring boot example rest app. Role based secruity credentials
+    version: 1.0.0
+endpoints:
+  beans:
+    id: springbeans
+    sensitive: false
+    enabled: true
+  shutdown:
+    enabled: true
+  metrics:
+    sensitive: false
+
+# cache 
+spring:
+  cache:
+    ehcache:
+      config: classpath:ehcache.xml
+
+# logging
+spring:
+  mvc:
+    dispatch-trace-request: true
