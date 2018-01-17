@@ -40,7 +40,7 @@ public class EmployeeRestController {
 	@RequestMapping(value = "/listOfEmployee", method = RequestMethod.GET, produces = {
 			MediaType.APPLICATION_JSON_VALUE })
 	@ResponseBody
-	@PreAuthorize("hasAuthority('ROLE_ADMIN')")
+	@PreAuthorize("hasAuthority('ROLE_USER')")
 	@ApiOperation(value = "All employee details", notes = "Avialable employees", response = EmployeeIO.class, responseContainer = "List", produces = MediaType.APPLICATION_JSON_VALUE, authorizations = {
 			@Authorization(value = "basic"/* "security scope bounded to 'ROLE_USER' users " */) })
 	Collection<EmployeeIO> getEmployees() {
@@ -53,9 +53,9 @@ public class EmployeeRestController {
 
 	@RequestMapping(value = "/employeeDetail", method = { org.springframework.web.bind.annotation.RequestMethod.GET })
 	@ResponseBody
-	@PreAuthorize("hasAuthority('ROLE_ADMIN')")
+	@PreAuthorize("hasAuthority('ROLE_USER')")
 	@ApiOperation(value = "Employee detail by id", notes = "Employee detail", response = EmployeeIO.class, authorizations = {
-			@Authorization(value = "security scope bounded to 'ROLE_ADMIN' users ") })
+			@Authorization(value = "security scope bounded to 'ROLE_USER' users ") })
 	EmployeeIO getEmployee(@RequestParam("id") Integer id) {
 		Employee emp = employeeService.getEmployee(id);
 		return new EmployeeIO(emp.getId(), emp.getName(), emp.getDepartment()) ;
@@ -66,7 +66,7 @@ public class EmployeeRestController {
 	@ResponseBody
 	@ApiOperation(value = "Add Employee", notes = "Employee add", response = EmployeeIO.class, produces = MediaType.APPLICATION_JSON_VALUE, authorizations = {
 			@Authorization(value = "security scope bounded to 'ROLE_ADMIN' users ") })
-	@PreAuthorize("hasAuthority('ROLE_ADMIN')")
+	@PreAuthorize("hasAuthority('ROLE_USER')")
 	EmployeeIO addEmployee(@RequestParam("id") Integer id, @RequestParam("name") String name,
 			@RequestParam(value = "department", required = false, defaultValue = "dev") String department) {
 		Employee emp = new Employee(id, name, department);
@@ -77,9 +77,9 @@ public class EmployeeRestController {
 	@RequestMapping(value = "/deleteEmployee", method = {
 			org.springframework.web.bind.annotation.RequestMethod.DELETE })
 	@ResponseBody
-	@PreAuthorize("hasAuthority('ROLE_ADMIN')")
+	@PreAuthorize("hasAuthority('ROLE_USER')")
 	@ApiOperation(value = "Employee deletion", notes = "Employee delete", authorizations = {
-			@Authorization(value = "security scope bounded to 'ROLE_ADMIN' users ") })
+			@Authorization(value = "security scope bounded to 'ROLE_USER' users ") })
 	void deleteEmployee(@RequestParam("id") Integer id) {
 		/* return */ employeeService.deleteEmployee(id);
 	}
@@ -88,9 +88,9 @@ public class EmployeeRestController {
 			org.springframework.web.bind.annotation.RequestMethod.PUT }, produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
 	// @Secured("ROLE_ADMIN")
-	@PreAuthorize("hasAuthority('ROLE_ADMIN')")
+	@PreAuthorize("hasAuthority('ROLE_USER')")
 	@ApiOperation(value = "Employee details update", notes = "present scope: Only department details updation", response = EmployeeIO.class, produces = MediaType.APPLICATION_JSON_VALUE, authorizations = {
-			@Authorization(value = "security scope bounded to 'ROLE_ADMIN' users ") })
+			@Authorization(value = "security scope bounded to 'ROLE_USER' users ") })
 	EmployeeIO updateEmployee(@RequestParam("id") Integer id, @RequestParam(value = "name", required = false) String name,
 			@RequestParam(value = "department", required = true) String department) {
 		Employee emp = new Employee(id, name, department);

@@ -21,10 +21,4 @@ public class CustomWebMvcConfigurerAdapter extends WebMvcConfigurerAdapter {
 	public void addCorsMappings(CorsRegistry registry) {
 		registry.addMapping("/**");
 	}
-
-	// @Override
-	// public void configureDefaultServletHandling(DefaultServletHandlerConfigurer
-	// configurer) {
-	// configurer.enable();
-	// }
 }

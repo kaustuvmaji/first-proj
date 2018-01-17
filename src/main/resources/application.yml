@@ -21,30 +21,3 @@ security:
 # Server configuration
 server:
  port: 8181
-
-# spring actuators [Application health management] configuration
-info:
-  app:
-    name: Spring Boot Rest App Example
-    description: This is a spring boot example rest app. Role based secruity credentials
-    version: 1.0.0
-endpoints:
-  beans:
-    id: springbeans
-    sensitive: false
-    enabled: true
-  shutdown:
-    enabled: true
-  metrics:
-    sensitive: false
-
-# cache 
-spring:
-  cache:
-    ehcache:
-      config: classpath:ehcache.xml
-
-# logging
-spring:
-  mvc:
-    dispatch-trace-request: true

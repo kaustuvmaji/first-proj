@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>Google OAuth2 Microservice</title>
+    <title>Spring Boot Rest App Example</title>
     <link rel="stylesheet" href="./css/bootstrap.min.css">
     <link rel="stylesheet" href="./css/app.css">
 </head>
@@ -33,6 +33,12 @@
                        ng-click="logout()"> Logout </a>
                 </div>
             </div>
+        </div>
+        
+        <div class="slide-animate-container" ng-show="user">
+             <!-- div class="slide-animate" ng-include="'http://localhost:8181/swagger-ui.html'"></div-->
+             <!-- iframe  width="560" height="315" src="http://localhost:8181/swagger-ui.html" frameborder="0" allowfullscreen></iframe-->
+             <a href="http://localhost:8181/swagger-ui.html">Api Documentation</a>
         </div>
         <!-- End Home Panel -->
 
