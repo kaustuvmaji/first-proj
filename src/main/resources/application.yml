@@ -19,5 +19,5 @@ security:
       userInfoUri: https://www.googleapis.com/oauth2/v3/userinfo
       preferTokenInfo: true
 # Server configuration
-server:
- port: 8181
+#server:
+ #port: 8181
