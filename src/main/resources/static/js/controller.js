@@ -2,6 +2,7 @@
 
 // Creating the Angular Controller
 app.controller('AppCtrl', function ($http, $scope) {
+	$scope.message = 'Welcome';
 
     // method for getting user details
     var getUser = function () {
@@ -22,4 +23,16 @@ app.controller('AppCtrl', function ($http, $scope) {
             console.log("Logout error : ", error);
         });
     };
+});
+
+app.controller('ApiDocCtrl', function($http,$scope) {
+	  $scope.message = 'API Documentation';
+});
+
+app.controller('BlogCtrl', function($http,$scope) {
+	  $scope.message = 'share and care';
+});
+
+app.controller('ContactCtrl', function($http,$scope) {
+	  $scope.message = 'contact';
 });
