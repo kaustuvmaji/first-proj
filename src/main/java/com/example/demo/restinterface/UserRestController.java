@@ -12,7 +12,6 @@ public class UserRestController {
 
 	@RequestMapping(value = "user", method = RequestMethod.GET)
 	public Principal user(Principal user) {
-		System.out.println("--------------" + user.getName());
 		return user;
 	}
 }
