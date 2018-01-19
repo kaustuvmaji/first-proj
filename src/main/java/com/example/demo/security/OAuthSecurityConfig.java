@@ -48,6 +48,7 @@ public class OAuthSecurityConfig extends WebSecurityConfigurerAdapter {
 	 */
 	@Override
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+//		AuthenticationProvider authenticationProvider;
 //		auth.authenticationProvider(authenticationProvider);
 		super.configure(auth);
 	}
