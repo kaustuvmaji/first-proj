@@ -4,7 +4,6 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -29,7 +28,6 @@ public class WorkForceManagementController {
 
 	@RequestMapping(value = "/assignmentDetail", method = { org.springframework.web.bind.annotation.RequestMethod.GET })
 	@ResponseBody
-	@PreAuthorize("hasAuthority('ROLE_ADMIN')")
 	@ApiOperation(value = "Assignment detail by employee id", notes = "Assignment detail", response = EmployeeData.class, authorizations = {
 			@Authorization(value = "security scope bounded to 'ROLE_ADMIN' users ") })
 	List<AssignmentDetail> getEmployee(@RequestParam(value = "firstName", required = false) String firstName,
@@ -40,7 +38,6 @@ public class WorkForceManagementController {
 	@RequestMapping(value = "/assignmentDetail", method = {
 			org.springframework.web.bind.annotation.RequestMethod.POST })
 	@ResponseBody
-	@PreAuthorize("hasAuthority('ROLE_ADMIN')")
 	@ApiOperation(value = "Assignment detail by employee id", notes = "Assignment detail", response = EmployeeData.class, authorizations = {
 			@Authorization(value = "security scope bounded to 'ROLE_ADMIN' users ") })
 	AssignmentDetail addEmployee(@RequestBody AssignmentDetail assignmentDetail) {

@@ -7,14 +7,12 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.ComponentScan;
-//import org.springframework.context.annotation.ImportResource;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 
 @SpringBootApplication
-// @ImportResource("classpath:cache-config.xml") // if we want to configure
-// things in xml.
 @ComponentScan(basePackages = { "com.example.demo.domain.core", "com.example.demo.domain.security.service",
 		"com.example.demo.app.configuration", "com.example.demo.application", "com.example.demo.application.aop",
 		"com.example.demo.restinterface", "com.example.demo.scheduler", "com.example.demo.security",
@@ -31,7 +29,7 @@ public class DemoApplication {
 			LOG.debug("com.kaustuv.spring.example.boot.rest started at " + LocalDateTime.now());
 		}
 	}
-
+	
 	/**
 	 * This class is responsible to redirect user to swagger ui so it will be easy
 	 * for integrator or reader to understand what type of apis are published by
@@ -43,9 +41,15 @@ public class DemoApplication {
 	@Controller
 	class WelcomeController {
 
-		@RequestMapping(value = "/", method = RequestMethod.GET)
-		String home() {
-			return "redirect:/swagger-ui.html";
+		@RequestMapping("/")
+		String home(ModelMap modal) {
+			modal.addAttribute("title","CRUD Example");
+			return "index";
+		}
+		
+		@RequestMapping("/partials/{page}")
+		String partialHandler(@PathVariable("page") final String page) {
+			return page;
 		}
 
 	}
