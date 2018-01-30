@@ -5,8 +5,9 @@ app.constant('urls', {
     USER_SERVICE_API : 'http://localhost:8080/employee/services',
     LISTALL : 'http://localhost:8080/employee/services/listOfEmployee',
     ADDEMPLOYEE : 'http://localhost:8080/employee/services/addEmployee',
-    UPDATEEMPLOYEE : 'http://localhost:8080/employee/services/updateEmployee'
-    DELETEEMPLOYEE : 'http://localhost:8080/employee/services/deleteEmployee'	
+    UPDATEEMPLOYEE : 'http://localhost:8080/employee/services/updateEmployee?employeeId=',
+    DELETEEMPLOYEE : 'http://localhost:8080/employee/services/deleteEmployee',
+    GETEMPLOYEE : 'http://localhost:8080/employee/services/employeeDetail?firstName='
 });
 
 app.config(['$stateProvider', '$urlRouterProvider',

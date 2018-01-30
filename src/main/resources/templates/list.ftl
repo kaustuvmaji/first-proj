@@ -18,9 +18,9 @@
 	                </div>
 	               <div class="row">
 	                    <div class="form-group col-md-12">
-	                        <label class="col-md-2 control-lable" for="lastName">Last Name</label>
+	                        <label class="col-md-2 control-lable" for="secondName">Last Name</label>
 	                        <div class="col-md-7">
-	                            <input type="text" ng-model="ctrl.user.lastName" id="lastName" class="username form-control input-sm" placeholder="Enter your name" required ng-minlength="3"/>
+	                            <input type="text" ng-model="ctrl.user.secondName" id="secondName" class="username form-control input-sm" placeholder="Enter your name" required ng-minlength="3"/>
 	                        </div>
 	                    </div>
 	                </div>
@@ -87,8 +87,8 @@
 			               	 	</tbody>	
 		   					</table>
 		                </td>
-		                <td><button type="button" ng-click="ctrl.editUser(u.employeeId)" class="btn btn-success custom-width">Edit</button></td>
-		                <td><button type="button" ng-click="ctrl.removeUser(u.id)" class="btn btn-danger custom-width">Remove</button></td>
+		                <td><button type="button" ng-click="ctrl.editUser(u.employeeId,u.firstName,u.secondName)" class="btn btn-success custom-width">Edit</button></td>
+		                <td><button type="button" ng-click="ctrl.removeUser(u.firstName,u.secondName)" class="btn btn-danger custom-width">Remove</button></td>
 		            </tr>
 		            </tbody>
 		        </table>		

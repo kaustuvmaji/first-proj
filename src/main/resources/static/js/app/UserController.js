@@ -12,6 +12,7 @@ angular.module('crudApp').controller('UserController',
         self.createUser = createUser;
         self.updateUser = updateUser;
         self.removeUser = removeUser;
+     
         self.editUser = editUser;
         self.reset = reset;
 
@@ -24,11 +25,11 @@ angular.module('crudApp').controller('UserController',
 
         function submit() {
             console.log('Submitting');
-            if (self.user.id === undefined || self.user.id === null) {
+            if (self.user.employeeId === undefined || self.user.employeeId === null) {
                 console.log('Saving New User', self.user);
                 createUser(self.user);
             } else {
-                updateUser(self.user, self.user.id);
+                updateUser(self.user);
                 console.log('User updated with id ', self.user.id);
             }
         }
@@ -54,9 +55,9 @@ angular.module('crudApp').controller('UserController',
         }
 
 
-        function updateUser(user, id){
+        function updateUser(user){
             console.log('About to update user');
-            UserService.updateUser(user, id)
+            UserService.updateUser(user)
                 .then(
                     function (response){
                         console.log('User updated successfully');
@@ -74,15 +75,15 @@ angular.module('crudApp').controller('UserController',
         }
 
 
-        function removeUser(id){
-            console.log('About to remove User with id '+id);
-            UserService.removeUser(id)
+        function removeUser(firstname,secondname){
+            console.log('About to remove User with id '+firstname+secondname);
+            UserService.removeUser(firstname,secondname)
                 .then(
                     function(){
-                        console.log('User '+id + ' removed successfully');
+                        console.log('User '+firstname+secondname + ' removed successfully');
                     },
                     function(errResponse){
-                        console.error('Error while removing user '+id +', Error :'+errResponse.data);
+                        console.error('Error while removing user '+firstname+secondname +', Error :'+errResponse.data);
                     }
                 );
         }
@@ -92,10 +93,10 @@ angular.module('crudApp').controller('UserController',
             return UserService.getAllUsers();
         }
 
-        function editUser(id) {
+        function editUser(id,firstname,lastname) {
             self.successMessage='';
             self.errorMessage='';
-            UserService.getUser(id).then(
+            UserService.getUser(firstname,lastname).then(
                 function (user) {
                     self.user = user;
                 },
@@ -104,12 +105,14 @@ angular.module('crudApp').controller('UserController',
                 }
             );
         }
+        
         function reset(){
             self.successMessage='';
             self.errorMessage='';
             self.user={};
             $scope.myForm.$setPristine(); //reset Form
         }
+        
     }
 
 

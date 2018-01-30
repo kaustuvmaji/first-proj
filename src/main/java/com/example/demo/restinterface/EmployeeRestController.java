@@ -50,8 +50,9 @@ public class EmployeeRestController {
 	@ApiOperation(value = "Employee detail by id", notes = "Employee detail", response = EmployeeData.class, authorizations = {
 			@Authorization(value = "security scope bounded to 'ROLE_ADMIN' users ") })
 	EmployeeData getEmployee(@RequestParam(value = "firstName", required = false) String firstName,
-			@RequestParam(value = "lastName", required = false) String lastName) {
-		return employeeService.getEmployee(firstName, lastName, null);
+			@RequestParam(value = "lastName", required = false) String lastName,
+			@RequestParam(value = "employeeId", required = false) String employeeId) {
+		return employeeService.getEmployee(firstName, lastName, employeeId);
 	}
 
 	@RequestMapping(value = "/addEmployee", method = {

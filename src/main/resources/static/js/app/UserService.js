@@ -38,20 +38,21 @@ angular.module('crudApp').factory('UserService',
                 return $localStorage.users;
             }
 
-            function getUser(id) {
-                console.log('Fetching User with id :'+id);
+            function getUser(firstname,lastname) {
+                console.log('Fetching User with id :'+firstname);
                 var deferred = $q.defer();
-                $http.get(urls.USER_SERVICE_API + id)
+                $http.get(urls.GETEMPLOYEE + firstname)
                     .then(
                         function (response) {
-                            console.log('Fetched successfully User with id :'+id);
+                            console.log('Fetched successfully User with id :'+firstname);
                             deferred.resolve(response.data);
                         },
                         function (errResponse) {
-                            console.error('Error while loading user with id :'+id);
+                            console.error('Error while loading user with id :'+firstname);
                             deferred.reject(errResponse);
                         }
                     );
+              
                 return deferred.promise;
             }
 
@@ -72,10 +73,12 @@ angular.module('crudApp').factory('UserService',
                 return deferred.promise;
             }
 
-            function updateUser(user, id) {
-                console.log('Updating User with id '+id);
+            function updateUser(user) {
+                console.log('Updating User'+user);
+                let jsonData = JSON.parse(user);
+                console.log('Updating User'+jsonData);
                 var deferred = $q.defer();
-                $http.put(urls.UPDATEEMPLOYEE + id, user)
+                $http.put(urls.UPDATEEMPLOYEE + user.employeeId, user)
                     .then(
                         function (response) {
                             loadAllUsers();
@@ -89,17 +92,17 @@ angular.module('crudApp').factory('UserService',
                 return deferred.promise;
             }
 
-            function removeUser(id) {
-                console.log('Removing User with id '+id);
+            function removeUser(firstname,secondname) {
+                console.log('Removing User with id '+firstname+secondname);
                 var deferred = $q.defer();
-                $http.delete(urls.DELETEEMPLOYEE + id)
+                $http.delete(urls.DELETEEMPLOYEE +'?firstName='+firstname+'&lastName='+secondname)
                     .then(
                         function (response) {
                             loadAllUsers();
                             deferred.resolve(response.data);
                         },
                         function (errResponse) {
-                            console.error('Error while removing User with id :'+id);
+                            console.error('Error while removing User with id :'+firstname+secondname);
                             deferred.reject(errResponse);
                         }
                     );
