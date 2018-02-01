@@ -33,6 +33,18 @@
 	                    </div>
 	                </div>
 	                <div class="row">
+	                    <div class="form-group col-md-12">
+	                        <label class="col-md-2 control-lable" for="ContactDetails">ContactDetails</label>
+	                        <div class="row">
+	                        	<div class="form-group col-md-12">
+	                             <label class="col-md-4 control-lable" for="streets">streets</label> 
+	                             <div class="col-md-7">
+	                           		<input type="text" ng-model="ctrl.user.salary" id="streets" class="form-control input-sm" placeholder="Enter your address."/>
+								</div>
+	                        </div>
+	                    </div>
+	                </div>
+	                <div class="row">
 	                    <div class="form-actions floatRight">
 	                        <input type="submit"  value="{{!ctrl.user.employeeId ? 'Add' : 'Update'}}" class="btn btn-primary btn-sm" ng-disabled="myForm.$invalid || myForm.$pristine">
 	                        <button type="button" ng-click="ctrl.reset()" class="btn btn-warning btn-sm" ng-disabled="myForm.$pristine">Reset Form</button>

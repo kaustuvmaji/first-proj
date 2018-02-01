@@ -5,6 +5,7 @@ import java.util.concurrent.CopyOnWriteArrayList;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
 import org.springframework.util.StringUtils;
 
 import com.example.demo.domain.ContactDetail;
@@ -43,18 +44,20 @@ public class EmployeeMongoServiceImpl implements EmployeeService {
 	public Employee updateEmployee(Employee employee) {
 		Employee updateableEmployee = employeeMongoRepsitory.findByFirstNameOrLastName(employee.getFirstName(),
 				employee.getSecondName());
-
-		List<ContactDetail> existingContactDetails = new CopyOnWriteArrayList<>(updateableEmployee.getContactDetails());
-
-		for (ContactDetail contactDetail : existingContactDetails) {
-			for (ContactDetail newContact : employee.getContactDetails()) {
-				if (contactDetail.getPhoneNumber().equals(newContact.getPhoneNumber())) {
-					contactDetail.updateContactDetail(newContact);
-				} else {
-					existingContactDetails.add(newContact);
+		if(!CollectionUtils.isEmpty(updateableEmployee.getContactDetails())) {
+			List<ContactDetail> existingContactDetails = new CopyOnWriteArrayList<>(updateableEmployee.getContactDetails());
+			for (ContactDetail contactDetail : existingContactDetails) {
+				for (ContactDetail newContact : employee.getContactDetails()) {
+					if (contactDetail.getPhoneNumber().equals(newContact.getPhoneNumber())) {
+						contactDetail.updateContactDetail(newContact);
+					} else {
+						existingContactDetails.add(newContact);
+					}
 				}
 			}
 		}
+		if(0!=employee.getSalary())
+		updateableEmployee.setSalary(employee.getSalary());
 		return employeeMongoRepsitory.save(updateableEmployee);
 	}
 

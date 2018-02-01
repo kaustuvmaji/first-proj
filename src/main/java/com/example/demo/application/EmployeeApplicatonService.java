@@ -97,7 +97,6 @@ public class EmployeeApplicatonService {
 			propertyHolder.put("employeeId", emp.getDocumentId());
 			propertyHolder.put("password", appUser.getPassword());
 			email.setPropertyHolder(propertyHolder);
-
 			nep.publish(email);
 		}
 
@@ -136,7 +135,6 @@ public class EmployeeApplicatonService {
 	 *
 	 * @see com.example.demo.EmployeeService#getEmployees()
 	 */
-	@Cacheable(value = "employeeCache", sync = true)
 	@LogMethodExecution
 	public Collection<EmployeeData> getEmployees() {
 		Collection<EmployeeData> employees = new ArrayList<>();

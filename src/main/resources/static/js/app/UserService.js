@@ -75,8 +75,6 @@ angular.module('crudApp').factory('UserService',
 
             function updateUser(user) {
                 console.log('Updating User'+user);
-                let jsonData = JSON.parse(user);
-                console.log('Updating User'+jsonData);
                 var deferred = $q.defer();
                 $http.put(urls.UPDATEEMPLOYEE + user.employeeId, user)
                     .then(
